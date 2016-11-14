@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 public class DotOvalView extends ImageView {
 
+
     private int color;
     private Paint paint;
 

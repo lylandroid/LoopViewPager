@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 public class LoopDotsView extends LinearLayout {
 
+
     private final int RECTANGLE = 1;
     private final int OVAL = 2;
     private int dotShape;//圆点形状
