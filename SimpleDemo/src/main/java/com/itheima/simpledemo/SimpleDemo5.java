@@ -25,7 +25,7 @@ public class SimpleDemo5 extends AppCompatActivity {
         };
         loopViewPager = (LoopViewPager) findViewById(R.id.lvp_pager);
         loopViewPager.setImgData(imageData);
-        loopViewPager.setPageTransformer(new ViewPager.PageTransformer() {
+        loopViewPager.getViewPager().setPageTransformer(true, new ViewPager.PageTransformer() {
             @Override
             public void transformPage(View view, float position) {
                 if (position <= 0) {
