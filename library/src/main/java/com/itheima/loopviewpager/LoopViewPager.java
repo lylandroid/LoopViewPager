@@ -35,7 +35,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
     private boolean touchEnable;//是否禁用触摸
     private int animTime;//动画时间
     private int animStyle;//动画样式
-    private CustomViewPager viewPager;//轮播页面
+    private ViewPager viewPager;//轮播页面
 
     private List<LoopDotsView> loopDotsViews = new ArrayList<>();//轮播圆点
     private List<LoopTitleView> loopTitleViews = new ArrayList<>();//轮播文本
@@ -67,7 +67,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         animStyle = a.getInt(R.styleable.LoopViewPager_animStyle, 0);
         a.recycle();
         View.inflate(getContext(), R.layout.weight_loopviewpager, this);
-        viewPager = (CustomViewPager) findViewById(R.id.cvp_pager);
+        viewPager = (ViewPager) findViewById(R.id.vp_pager);
         if (intervalTime > 0 && intervalTime < MIN_TIME) {
             intervalTime = MIN_TIME;
         }
