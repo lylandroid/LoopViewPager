@@ -14,7 +14,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private Class[] classes = {SimpleDemo1.class, SimpleDemo2.class, SimpleDemo3.class};
-    private String[] names = {"1、如何填充数据", "2、如何配置属性", "3、如何添加动画"};
+    private String[] names = {"1、如何添加轮播图片", "2、如何添加标题和圆点", "3、如何添加图片切换动画"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
