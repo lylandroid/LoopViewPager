@@ -1,6 +1,5 @@
 package com.itheima.loopviewpager.transformer;
 
-
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
