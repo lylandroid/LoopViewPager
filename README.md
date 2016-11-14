@@ -17,7 +17,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.itcastsh:loopviewpager:1.1.1'
+    compile 'com.github.itcastsh:loopviewpager:1.1.2'
 }
 ```
 
@@ -25,19 +25,26 @@ dependencies {
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <declare-styleable name="LoopViewPager">
-        <!-- 轮播间隔时间 -->
-        <attr name="intervalTime" format="integer|reference" />
-        <!-- 是否可以手动滚动 -->
+        <!-- 轮播时间 -->
+        <attr name="intervalTime" format="integer" />
+        <!-- 是否可滚动 -->
         <attr name="scrollEnable" format="boolean" />
-        <!-- 触摸是否停止 -->
+        <!-- 是否可触摸 -->
         <attr name="touchEnable" format="boolean" />
+        <!-- 动画时间 -->
+        <attr name="animTime" format="integer" />
+        <attr name="animStyle" format="enum">
+            <enum name="Cube" value="1" />
+            <enum name="Accordion" value="2" />
+        </attr>
     </declare-styleable>
     <declare-styleable name="LoopDotsView">
         <!-- 圆点形状 -->
         <attr name="dotShape">
             <enum name="rectangle" value="1" />
-            <enum name="oval" value="2"/>
+            <enum name="oval" value="2" />
         </attr>
         <!-- 圆点宽度 -->
         <attr name="dotWidth" format="integer|dimension|reference" />
@@ -54,6 +61,7 @@ dependencies {
         <!-- 圆点选中资源 -->
         <attr name="dotSelectResource" format="reference" />
     </declare-styleable>
+
 </resources>
 ```
 
@@ -123,7 +131,7 @@ dependencies {
 ```
 
 #运行效果
-![image](https://github.com/itcastsh/LoopViewPager/blob/master/simpledemo.gif)
+![image](https://github.com/itcastsh/LoopViewPager/blob/master/gif/v1.1.2.gif)
 
 #BUG反馈
 反馈邮箱：873259480@qq.com
