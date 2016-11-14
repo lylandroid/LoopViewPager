@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,8 +91,20 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         }
     }
 
-    public ViewPager getViewPager() {
-        return viewPager;
+    public void setPageTransformer(ViewPager.PageTransformer transformer) {
+        viewPager.setPageTransformer(true, transformer);
+    }
+
+    public void setPageTransformer(int animTime, ViewPager.PageTransformer transformer) {
+        try {
+            Field mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            FixedSpeedScroller scroller = new FixedSpeedScroller(getContext());
+            scroller.setmDuration(animTime);
+            mScroller.set(viewPager, scroller);
+        } catch (Exception e) {
+        }
+        setPageTransformer(transformer);
     }
 
     public void setImgData(A imgData) {
