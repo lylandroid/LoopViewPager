@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="添加轮播图片" />
+        android:text="1、添加轮播图片" />
 
     <com.itheima.loopviewpager.LoopViewPager
         android:id="@+id/lvp_pager"

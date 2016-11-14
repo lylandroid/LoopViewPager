@@ -9,14 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="自定义图片切换动画" />
+        android:text="4、自定义图片切换动画" />
 
     <com.itheima.loopviewpager.LoopViewPager
         android:id="@+id/lvp_pager"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:intervalTime="3000"
-        app:scrollEnable="false">
+        app:intervalTime="3000">
 
         <com.itheima.loopviewpager.LoopTitleView
             android:layout_width="match_parent"
