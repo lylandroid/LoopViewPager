@@ -8,6 +8,11 @@
         <attr name="scrollEnable" format="boolean" />
         <!-- 是否可触摸 -->
         <attr name="touchEnable" format="boolean" />
+        <!-- 动画时间 -->
+        <attr name="animTime" format="integer" />
+        <attr name="animStyle" format="enum">
+            <enum name="Cube" value="1" />
+        </attr>
     </declare-styleable>
     <declare-styleable name="LoopDotsView">
         <!-- 圆点形状 -->

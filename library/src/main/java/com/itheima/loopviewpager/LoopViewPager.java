@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.itheima.loopviewpager.transformer.CubeTransformer;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -32,6 +33,8 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
     private int intervalTime;//轮播时间
     private boolean scrollEnable;//是否禁用滚动
     private boolean touchEnable;//是否禁用触摸
+    private int animTime;//动画时间
+    private int animStyle;//动画样式
     private CustomViewPager viewPager;//轮播页面
 
     private List<LoopDotsView> loopDotsViews = new ArrayList<>();//轮播圆点
@@ -39,6 +42,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
 
     private int realIndex;//真实的索引
     private int showIndex;//展示的索引
+
 
     private Handler handler = new Handler() {
         @Override
@@ -59,12 +63,18 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         intervalTime = a.getInt(R.styleable.LoopViewPager_intervalTime, 0);
         scrollEnable = a.getBoolean(R.styleable.LoopViewPager_scrollEnable, true);
         touchEnable = a.getBoolean(R.styleable.LoopViewPager_touchEnable, true);
+        animTime = a.getInt(R.styleable.LoopViewPager_animTime, 0);
+        animStyle = a.getInt(R.styleable.LoopViewPager_animStyle, 0);
         a.recycle();
         View.inflate(getContext(), R.layout.weight_loopviewpager, this);
         viewPager = (CustomViewPager) findViewById(R.id.cvp_pager);
         if (intervalTime > 0 && intervalTime < MIN_TIME) {
             intervalTime = MIN_TIME;
         }
+        if (animTime > 0 && animTime > intervalTime) {
+            animTime = intervalTime;
+        }
+        setPageTransformer(animTime, animStyle);
     }
 
     @Override
@@ -89,22 +99,6 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         } else {
             return true;
         }
-    }
-
-    public void setPageTransformer(ViewPager.PageTransformer transformer) {
-        viewPager.setPageTransformer(true, transformer);
-    }
-
-    public void setPageTransformer(int animTime, ViewPager.PageTransformer transformer) {
-        try {
-            Field mScroller = ViewPager.class.getDeclaredField("mScroller");
-            mScroller.setAccessible(true);
-            FixedSpeedScroller scroller = new FixedSpeedScroller(getContext());
-            scroller.setmDuration(animTime);
-            mScroller.set(viewPager, scroller);
-        } catch (Exception e) {
-        }
-        setPageTransformer(transformer);
     }
 
     public void setImgData(A imgData) {
@@ -170,11 +164,11 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
             }
         }
         realIndex = 1000 * (Integer.MAX_VALUE % imgLength);
-        showIndex = 0;
+        showIndex = -1;
         viewPager.setAdapter(new LoopPagerAdapter());
-        viewPager.setCurrentItem(realIndex);
         viewPager.setOnTouchListener(this);
         viewPager.addOnPageChangeListener(new LoopPageChangeListener());
+        viewPager.setCurrentItem(realIndex);
         if (intervalTime >= MIN_TIME) {
             handler.sendEmptyMessageDelayed(SCROLL, intervalTime);
         }
@@ -231,7 +225,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
                 for (LoopTitleView loopTitleView : loopTitleViews) {
                     if (titleData instanceof List) {
                         loopTitleView.setText(((List<String>) titleData).get(index));
-                    } else {
+                    } else if (titleData instanceof String[]){
                         loopTitleView.setText(((String[]) titleData)[index]);
                     }
                 }
@@ -248,6 +242,36 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         @Override
         public void onPageScrollStateChanged(int state) {
         }
+    }
+
+    private void setPageTransformer(int animTime, int animStyle) {
+        ViewPager.PageTransformer transformer = null;
+        switch (animStyle) {
+            case Anim.CUBE:
+                transformer = new CubeTransformer();
+                break;
+        }
+        setPageTransformer(animTime, transformer);
+    }
+
+    public void setPageTransformer(int animTime, ViewPager.PageTransformer transformer) {
+        if (animTime > 0) {
+            try {
+                Field mScroller = ViewPager.class.getDeclaredField("mScroller");
+                mScroller.setAccessible(true);
+                FixedSpeedScroller scroller = new FixedSpeedScroller(getContext());
+                scroller.setmDuration(animTime);
+                mScroller.set(viewPager, scroller);
+            } catch (Exception e) {
+            }
+        }
+        if (transformer != null) {
+            setPageTransformer(transformer);
+        }
+    }
+
+    public void setPageTransformer(ViewPager.PageTransformer transformer) {
+        viewPager.setPageTransformer(true, transformer);
     }
 
 }
