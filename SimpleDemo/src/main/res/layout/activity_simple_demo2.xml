@@ -5,33 +5,38 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="添加标题和圆点" />
+
     <com.itheima.loopviewpager.LoopViewPager
         android:id="@+id/lvp_pager"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:intervalTime="3000">
 
-        <com.itheima.loopviewpager.LoopDotsView
-            android:layout_width="wrap_content"
+        <com.itheima.loopviewpager.LoopTitleView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|center_horizontal"
-            android:layout_margin="10dp"
-            app:dotShape="rectangle"
-            app:dotHeight="10dp"
-            app:dotRange="10dp"
-            app:dotColor="#55000000"
-            app:dotSelectColor="#FFFFFF"
-            app:dotWidth="10dp" />
+            android:layout_gravity="bottom"
+            android:background="#55000000"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textColor="#FF0000"
+            android:textSize="16sp" />
 
         <com.itheima.loopviewpager.LoopDotsView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
+            android:layout_gravity="right|bottom"
             android:layout_margin="10dp"
+            app:dotColor="#55000000"
             app:dotHeight="10dp"
             app:dotRange="10dp"
-            app:dotResource="@mipmap/dot_normal"
-            app:dotSelectResource="@mipmap/dot_selected"
+            app:dotSelectColor="#FFFFFF"
+            app:dotShape="oval"
             app:dotWidth="10dp" />
 
     </com.itheima.loopviewpager.LoopViewPager>
