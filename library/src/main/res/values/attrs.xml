@@ -12,6 +12,7 @@
         <attr name="animTime" format="integer" />
         <attr name="animStyle" format="enum">
             <enum name="Cube" value="1" />
+            <enum name="Accordion" value="2" />
         </attr>
     </declare-styleable>
     <declare-styleable name="LoopDotsView">

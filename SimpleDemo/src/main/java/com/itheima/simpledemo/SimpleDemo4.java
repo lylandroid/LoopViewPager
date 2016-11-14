@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.itheima.loopviewpager.LoopViewPager;
+import com.nineoldandroids.view.ViewHelper;
 
 public class SimpleDemo4 extends AppCompatActivity {
 

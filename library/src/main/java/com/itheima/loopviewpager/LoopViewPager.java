@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.itheima.loopviewpager.transformer.AccordionTransformer;
 import com.itheima.loopviewpager.transformer.CubeTransformer;
 
 import java.lang.reflect.Field;
@@ -225,7 +226,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
                 for (LoopTitleView loopTitleView : loopTitleViews) {
                     if (titleData instanceof List) {
                         loopTitleView.setText(((List<String>) titleData).get(index));
-                    } else if (titleData instanceof String[]){
+                    } else if (titleData instanceof String[]) {
                         loopTitleView.setText(((String[]) titleData)[index]);
                     }
                 }
@@ -249,6 +250,9 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         switch (animStyle) {
             case Anim.CUBE:
                 transformer = new CubeTransformer();
+                break;
+            case Anim.ACCORDION:
+                transformer = new AccordionTransformer();
                 break;
         }
         setPageTransformer(animTime, transformer);
