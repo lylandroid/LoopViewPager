@@ -17,14 +17,13 @@ public class DataFactory {
 
     public static List<Integer> imgListInt() {
         List<Integer> imageData = new ArrayList<>();
-        imageData.add(R.mipmap.image1);
-        imageData.add(R.mipmap.image2);
-        imageData.add(R.mipmap.image3);
-        imageData.add(R.mipmap.image4);
-        imageData.add(R.mipmap.image5);
+        imageData.add(R.mipmap.a);
+        imageData.add(R.mipmap.b);
+        imageData.add(R.mipmap.c);
+        imageData.add(R.mipmap.d);
+        imageData.add(R.mipmap.e);
         return imageData;
     }
-
 
     public static String[] imgArrayString() {
         String[] imageData = new String[]{
@@ -37,35 +36,34 @@ public class DataFactory {
         return imageData;
     }
 
-
     public static int[] imgArrayInt() {
         int[] imageData = new int[]{
-                R.mipmap.image1,
-                R.mipmap.image2,
-                R.mipmap.image3,
-                R.mipmap.image4,
-                R.mipmap.image5
+                R.mipmap.a,
+                R.mipmap.b,
+                R.mipmap.c,
+                R.mipmap.d,
+                R.mipmap.e
         };
         return imageData;
     }
 
     public static List<String> titleListString() {
         List<String> imageData = new ArrayList<>();
-        imageData.add("我的轮播标题一");
-        imageData.add("我的轮播标题二");
-        imageData.add("我的轮播标题三");
-        imageData.add("我的轮播标题四");
-        imageData.add("我的轮播标题五");
+        imageData.add("在这里等着你");
+        imageData.add("在你身边");
+        imageData.add("打电话给你就是想说声“嗨”");
+        imageData.add("不介意你对我大喊大叫");
+        imageData.add("期待你总是尽全力");
         return imageData;
     }
 
     public static String[] titleArrayString() {
         String[] imageData = new String[]{
-                "我的轮播标题一",
-                "我的轮播标题二",
-                "我的轮播标题三",
-                "我的轮播标题四",
-                "我的轮播标题五",
+                "在这里等着你",
+                "在你身边",
+                "打电话给你就是想说声“嗨”",
+                "不介意你对我大喊大叫",
+                "期待你总是尽全力",
         };
         return imageData;
     }
