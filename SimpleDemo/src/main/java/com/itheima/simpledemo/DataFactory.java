@@ -49,4 +49,25 @@ public class DataFactory {
         return imageData;
     }
 
+    public static List<String> titleListString() {
+        List<String> imageData = new ArrayList<>();
+        imageData.add("我的轮播标题一");
+        imageData.add("我的轮播标题二");
+        imageData.add("我的轮播标题三");
+        imageData.add("我的轮播标题四");
+        imageData.add("我的轮播标题五");
+        return imageData;
+    }
+
+    public static String[] titleArrayString() {
+        String[] imageData = new String[]{
+                "我的轮播标题一",
+                "我的轮播标题二",
+                "我的轮播标题三",
+                "我的轮播标题四",
+                "我的轮播标题五",
+        };
+        return imageData;
+    }
+
 }
