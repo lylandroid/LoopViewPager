@@ -39,6 +39,7 @@ public class SimpleDemo1 extends AppCompatActivity {
                 loopViewPager.setImgData(DataFactory.imgArrayInt());
             }
         });
+        loopViewPager.setImgData(DataFactory.imgListString());
     }
 
 }
