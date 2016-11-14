@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="添加轮播图片" />
+
     <com.itheima.loopviewpager.LoopViewPager
         android:id="@+id/lvp_pager"
         android:layout_width="match_parent"
@@ -25,28 +31,28 @@
                 android:id="@+id/btn_list_string"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="List String"
+                android:text="AddListString"
                 android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/btn_list_int"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="List int"
+                android:text="AddListInt"
                 android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/btn_string"
+                android:id="@+id/btn_array_string"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="String"
+                android:text="AddArrayString"
                 android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/btn_int"
+                android:id="@+id/btn_array_int"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="int"
+                android:text="AddArrayInt"
                 android:textAllCaps="false" />
 
         </LinearLayout>
