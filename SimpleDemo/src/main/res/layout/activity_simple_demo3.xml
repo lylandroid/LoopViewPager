@@ -15,9 +15,9 @@
         android:id="@+id/lvp_pager"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:intervalTime="3000"
-        app:scrollEnable="false"
-        app:touchEnable="false">
+        app:animStyle="Cube"
+        app:animTime="1500"
+        app:intervalTime="2000">
 
         <com.itheima.loopviewpager.LoopTitleView
             android:layout_width="match_parent"
