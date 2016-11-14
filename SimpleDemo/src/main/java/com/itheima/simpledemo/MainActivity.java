@@ -13,7 +13,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Class[] classes = {SimpleDemo1.class, SimpleDemo2.class, SimpleDemo3.class, SimpleDemo4.class, SimpleDemo5.class};
+    private Class[] classes = {SimpleDemo1.class, SimpleDemo2.class, SimpleDemo3.class};
+    private String[] names = {"1、如何填充数据", "2、如何配置属性", "3、如何添加动画"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public View getView(int i, View view, ViewGroup viewGroup) {
                 TextView textView = (TextView) LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
-                textView.setText(classes[i].getName());
+                textView.setText(names[i]);
                 return textView;
             }
         });
