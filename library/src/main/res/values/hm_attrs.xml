@@ -12,11 +12,12 @@
             <enum name="Accordion" value="2" />
             <enum name="ScrollUp" value="3" />
         </attr>
-        <!-- 是否可滚动 -->
+        <!-- 是否可以手动滚动 -->
         <attr name="scrollEnable" format="boolean" />
-        <!-- 是否可触摸停止 -->
+        <!-- 触摸是否停止轮播 -->
         <attr name="touchEnable" format="boolean" />
     </declare-styleable>
+
     <declare-styleable name="LoopDotsView">
         <!-- 圆点形状 -->
         <attr name="dotShape">
