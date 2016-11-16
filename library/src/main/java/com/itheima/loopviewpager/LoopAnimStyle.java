@@ -1,6 +1,6 @@
 package com.itheima.loopviewpager;
 
-public interface LoopAnim {
+public interface LoopAnimStyle {
 
     int CUBE = 1;
     int ACCORDION = 2;

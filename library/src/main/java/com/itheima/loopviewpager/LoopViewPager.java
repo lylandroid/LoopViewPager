@@ -256,13 +256,13 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
     private void setPageTransformer(int animTime, int animStyle) {
         ViewPager.PageTransformer transformer = null;
         switch (animStyle) {
-            case LoopAnim.CUBE:
+            case LoopAnimStyle.CUBE:
                 transformer = new CubeTransformer();
                 break;
-            case LoopAnim.ACCORDION:
+            case LoopAnimStyle.ACCORDION:
                 transformer = new AccordionTransformer();
                 break;
-            case LoopAnim.SCROLLUP:
+            case LoopAnimStyle.SCROLLUP:
                 transformer = new ScrollUpTransformer();
                 break;
         }
