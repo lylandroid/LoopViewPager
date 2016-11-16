@@ -1,5 +1,8 @@
 package com.itheima.loopviewpager;
 
+/**
+ * 动画效果
+ */
 public interface LoopAnimStyle {
 
     int CUBE = 1;
