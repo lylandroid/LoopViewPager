@@ -165,7 +165,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
                 loopDotsViews.add(loopDotsView);
             }
         }
-        realIndex = 1000 * (Integer.MAX_VALUE % imgLength);
+        realIndex = 1000 * imgLength;
         showIndex = -1;
         viewPager.setAdapter(new LoopPagerAdapter());
         viewPager.setOnTouchListener(this);
