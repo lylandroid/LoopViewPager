@@ -97,7 +97,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         animTime = a.getInt(R.styleable.LoopViewPager_animTime, 0);
         animStyle = a.getInt(R.styleable.LoopViewPager_animStyle, 0);
         a.recycle();
-        View.inflate(getContext(), R.layout.weight_loopviewpager, this);
+        View.inflate(getContext(), R.layout.hm_loopviewpager, this);
         viewPager = (ViewPager) findViewById(R.id.vp_pager);
         if (loopTime > 0 && loopTime < MIN_TIME) {
             loopTime = MIN_TIME;
