@@ -6,11 +6,15 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.itheima.loopviewpager.dots.DotOvalView;
+import com.itheima.loopviewpager.dots.DotStarView;
+
 public class LoopDotsView extends LinearLayout {
 
 
     private final int RECTANGLE = 1;
     private final int OVAL = 2;
+    private final int STAR = 3;
     private int dotShape;//圆点形状
     private int dotWidth;//圆点宽度，默认0dp
     private int dotHeight;//圆点高度，默认0dp
@@ -52,6 +56,8 @@ public class LoopDotsView extends LinearLayout {
                 view = new View(getContext());
             } else if (dotShape == OVAL) {
                 view = new DotOvalView(getContext());
+            }else if (dotShape == STAR) {
+                view = new DotStarView(getContext());
             }
             if (i == 0) {
                 params.setMargins(0, 0, 0, 0);
@@ -61,7 +67,11 @@ public class LoopDotsView extends LinearLayout {
                     if (dotShape == RECTANGLE){
                         view.setBackgroundColor(dotSelectColor);
                     }else{
-                        ((DotOvalView)view).change(dotSelectColor);
+                        if (dotShape == OVAL){
+                            ((DotOvalView)view).change(dotSelectColor);
+                        }else if (dotShape == STAR){
+                            ((DotStarView)view).change(dotSelectColor);
+                        }
                     }
                 }
             } else {
@@ -76,9 +86,12 @@ public class LoopDotsView extends LinearLayout {
                     if (dotShape == RECTANGLE){
                         view.setBackgroundColor(dotColor);
                     }else{
-                        ((DotOvalView)view).change(dotColor);
+                        if (dotShape == OVAL){
+                            ((DotOvalView)view).change(dotColor);
+                        }else if (dotShape == STAR){
+                            ((DotStarView)view).change(dotColor);
+                        }
                     }
-
                 }
             }
             view.setLayoutParams(params);
@@ -86,7 +99,7 @@ public class LoopDotsView extends LinearLayout {
         }
     }
 
-    public void update(int index, int dotIndex) {
+    public void updateDots(int index, int dotIndex) {
         if (index >= 0) {
             if (dotSelectResource != 0) {
                 getChildAt(index).setBackgroundResource(dotSelectResource);
@@ -94,7 +107,11 @@ public class LoopDotsView extends LinearLayout {
                 if (dotShape == RECTANGLE){
                     getChildAt(index).setBackgroundColor(dotSelectColor);
                 }else{
-                    ((DotOvalView)getChildAt(index)).change(dotSelectColor);
+                    if (dotShape == OVAL){
+                        ((DotOvalView)getChildAt(index)).change(dotSelectColor);
+                    }else if (dotShape == STAR){
+                        ((DotStarView)getChildAt(index)).change(dotSelectColor);
+                    }
                 }
             }
         }
@@ -105,7 +122,11 @@ public class LoopDotsView extends LinearLayout {
                 if (dotShape == RECTANGLE){
                     getChildAt(dotIndex).setBackgroundColor(dotColor);
                 }else{
-                    ((DotOvalView)getChildAt(dotIndex)).change(dotColor);
+                    if (dotShape == OVAL){
+                        ((DotOvalView)getChildAt(index)).change(dotColor);
+                    }else if (dotShape == STAR){
+                        ((DotStarView)getChildAt(index)).change(dotColor);
+                    }
                 }
             }
         }

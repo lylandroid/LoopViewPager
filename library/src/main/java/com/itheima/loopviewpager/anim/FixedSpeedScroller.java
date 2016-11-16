@@ -1,4 +1,4 @@
-package com.itheima.loopviewpager;
+package com.itheima.loopviewpager.anim;
 
 import android.content.Context;
 import android.widget.Scroller;
