@@ -1,4 +1,4 @@
-package com.itheima.loopviewpager;
+package com.itheima.loopviewpager.transformer;
 
 public interface Anim {
 

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.itheima.loopviewpager.transformer.AccordionTransformer;
+import com.itheima.loopviewpager.transformer.Anim;
 import com.itheima.loopviewpager.transformer.CubeTransformer;
 
 import java.lang.reflect.Field;
