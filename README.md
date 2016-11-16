@@ -133,5 +133,9 @@ dependencies {
 #运行效果
 ![image](https://github.com/itcastsh/LoopViewPager/blob/master/gif/v1.1.2.gif)
 
+#最低版本
+v14+
+
 #BUG反馈
+QQ交流群：334700525
 反馈邮箱：873259480@qq.com
