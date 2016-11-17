@@ -17,7 +17,10 @@
         android:layout_height="200dp"
         app:animStyle="Accordion"
         app:animTime="1500"
-        app:intervalTime="2000">
+        app:loopTime="2000">
+
+
+
 
         <com.itheima.loopviewpager.LoopTitleView
             android:layout_width="match_parent"
@@ -40,7 +43,6 @@
             app:dotResource="@mipmap/dot_normal"
             app:dotSelectResource="@mipmap/dot_selected"
             app:dotWidth="10dp" />
-
     </com.itheima.loopviewpager.LoopViewPager>
 
 </LinearLayout>

@@ -15,7 +15,7 @@
         android:id="@+id/lvp_pager"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:intervalTime="3000">
+        app:loopTime="3000">
 
         <com.itheima.loopviewpager.LoopTitleView
             android:layout_width="match_parent"
@@ -33,11 +33,11 @@
             android:layout_gravity="right|bottom"
             android:layout_margin="10dp"
             app:dotColor="#55000000"
-            app:dotHeight="10dp"
-            app:dotRange="10dp"
+            app:dotHeight="15dp"
+            app:dotRange="15dp"
             app:dotSelectColor="#FFFFFF"
             app:dotShape="oval"
-            app:dotWidth="10dp" />
+            app:dotWidth="15dp" />
 
     </com.itheima.loopviewpager.LoopViewPager>
 

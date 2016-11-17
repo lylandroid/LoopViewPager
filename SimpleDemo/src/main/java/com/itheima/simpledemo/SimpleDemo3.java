@@ -15,6 +15,7 @@ public class SimpleDemo3 extends AppCompatActivity {
         setContentView(R.layout.activity_simple_demo3);
         loopViewPager = (LoopViewPager) findViewById(R.id.lvp_pager);
         loopViewPager.setImgAndTitleData(DataFactory.imgListString(), DataFactory.titleListString());
+        loopViewPager.start();
     }
 
 }

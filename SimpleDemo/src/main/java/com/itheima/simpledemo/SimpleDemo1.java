@@ -19,24 +19,28 @@ public class SimpleDemo1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 loopViewPager.setImgData(DataFactory.imgListString());
+                loopViewPager.start();
             }
         });
         findViewById(R.id.btn_list_int).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loopViewPager.setImgData(DataFactory.imgListInt());
+                loopViewPager.start();
             }
         });
         findViewById(R.id.btn_array_string).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loopViewPager.setImgData(DataFactory.imgArrayString());
+                loopViewPager.start();
             }
         });
         findViewById(R.id.btn_array_int).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loopViewPager.setImgData(DataFactory.imgArrayInt());
+                loopViewPager.start();
             }
         });
     }

@@ -31,6 +31,7 @@ public class SimpleDemo4 extends AppCompatActivity {
                 }
             }
         });
+        loopViewPager.start();
     }
 
 }

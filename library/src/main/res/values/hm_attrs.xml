@@ -2,19 +2,19 @@
 <resources>
 
     <declare-styleable name="LoopViewPager">
-        <!-- 轮播时间 -->
+        <!-- 轮播时间，必须大于1s，0表示不自动轮播，非必填 -->
         <attr name="loopTime" format="integer" />
-        <!-- 动画时间 -->
+        <!-- 动画时间，必须小于loopTime，非必填 -->
         <attr name="animTime" format="integer" />
-        <!-- 动画效果 -->
+        <!-- 动画效果，非必填 -->
         <attr name="animStyle" format="enum">
             <enum name="Cube" value="1" />
             <enum name="Accordion" value="2" />
             <enum name="ScrollUp" value="3" />
         </attr>
-        <!-- 是否可以手动滚动 -->
+        <!-- 是否可以手动滚动页面，默认true，非必填 -->
         <attr name="scrollEnable" format="boolean" />
-        <!-- 触摸是否停止轮播 -->
+        <!-- 触摸页面是否停止轮播,默认true，非必填 -->
         <attr name="touchEnable" format="boolean" />
     </declare-styleable>
 
@@ -23,7 +23,6 @@
         <attr name="dotShape">
             <enum name="rectangle" value="1" />
             <enum name="oval" value="2" />
-            <enum name="star" value="3" />
         </attr>
         <!-- 圆点大小 -->
         <attr name="dotSize" format="integer|dimension|reference" />

@@ -36,8 +36,8 @@ public class DataFactory {
         return imageData;
     }
 
-    public static int[] imgArrayInt() {
-        int[] imageData = new int[]{
+    public static Integer[] imgArrayInt() {
+        Integer[] imageData = new Integer[]{
                 R.mipmap.a,
                 R.mipmap.b,
                 R.mipmap.c,

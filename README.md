@@ -17,7 +17,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.itcastsh:loopviewpager:1.1.2'
+    compile 'com.github.itcastsh:loopviewpager:1.1.3'
 }
 ```
 
