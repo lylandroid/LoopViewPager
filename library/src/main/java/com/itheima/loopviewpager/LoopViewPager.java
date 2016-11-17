@@ -14,10 +14,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.itheima.loopviewpager.anim.AccordionTransformer;
-import com.itheima.loopviewpager.anim.CubeTransformer;
+import com.itheima.loopviewpager.anim.AccordionLeftTransformer;
+import com.itheima.loopviewpager.anim.AccordionUpTransformer;
+import com.itheima.loopviewpager.anim.CubeLeftTransformer;
+import com.itheima.loopviewpager.anim.CubeUpTransformer;
 import com.itheima.loopviewpager.anim.FixedSpeedScroller;
-import com.itheima.loopviewpager.anim.ScrollUpTransformer;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -49,59 +50,6 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
     private int imgLength;//图片数据长度
     private int titleLength;//标题数据长度
 
-    public void setImgData(List<A> imgList) {
-        this.imgList = imgList;
-        imgArray = null;
-        titleList = null;
-        titleArray = null;
-        imgLength = imgList.size();
-        titleLength = 0;
-    }
-
-    public void setImgData(A[] imgArray) {
-        this.imgArray = imgArray;
-        imgList = null;
-        titleList = null;
-        titleArray = null;
-        imgLength = imgArray.length;
-        titleLength = 0;
-    }
-
-    public void setImgAndTitleData(List<A> imgList, List<B> titleList) {
-        this.imgList = imgList;
-        this.titleList = titleList;
-        imgArray = null;
-        titleArray = null;
-
-        imgLength = imgList.size();
-        titleLength = titleList.size();
-    }
-
-    public void setImgAndTitleData(List<A> imgList, B[] titleArray) {
-        this.imgList = imgList;
-        this.titleArray = titleArray;
-
-        imgArray = null;
-        titleList = null;
-
-        imgLength = imgList.size();
-        titleLength = titleArray.length;
-    }
-
-    public void setImgAndTitleData(A[] imgArray, List<B> titleList) {
-        this.imgArray = imgArray;
-        this.titleList = titleList;
-        imgLength = imgArray.length;
-        titleLength = titleList.size();
-    }
-
-    public void setImgAndTitleData(A[] imgArray, B[] titleArray) {
-        this.imgArray = imgArray;
-        this.titleArray = titleArray;
-        imgLength = imgArray.length;
-        titleLength = titleArray.length;
-    }
-
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -114,6 +62,73 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
             }
         }
     };
+
+    public void setImgData(List<A> imgList) {
+        this.imgList = imgList;
+        imgArray = null;
+        titleList = null;
+        titleArray = null;
+        imgLength = imgList.size();
+        titleLength = 0;
+        start();
+    }
+
+    public void setImgData(A[] imgArray) {
+        this.imgArray = imgArray;
+        imgList = null;
+        titleList = null;
+        titleArray = null;
+        imgLength = imgArray.length;
+        titleLength = 0;
+        start();
+    }
+
+    //////////////////////////////////////
+    public void setImgView(View[] imgArray) {
+        imgArray = imgArray;
+        imgList = null;
+        titleList = null;
+        titleArray = null;
+        imgLength = imgArray.length;
+        titleLength = 0;
+        start();
+    }
+
+    public void setImgAndTitleData(List<A> imgList, List<B> titleList) {
+        this.imgList = imgList;
+        this.titleList = titleList;
+        imgArray = null;
+        titleArray = null;
+        imgLength = imgList.size();
+        titleLength = titleList.size();
+        start();
+    }
+
+    public void setImgAndTitleData(List<A> imgList, B[] titleArray) {
+        this.imgList = imgList;
+        this.titleArray = titleArray;
+        imgArray = null;
+        titleList = null;
+        imgLength = imgList.size();
+        titleLength = titleArray.length;
+        start();
+    }
+
+    public void setImgAndTitleData(A[] imgArray, List<B> titleList) {
+        this.imgArray = imgArray;
+        this.titleList = titleList;
+        imgLength = imgArray.length;
+        titleLength = titleList.size();
+        start();
+    }
+
+    public void setImgAndTitleData(A[] imgArray, B[] titleArray) {
+        this.imgArray = imgArray;
+        this.titleArray = titleArray;
+        imgLength = imgArray.length;
+        titleLength = titleArray.length;
+        start();
+    }
 
     public LoopViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -139,14 +154,17 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
 
         ViewPager.PageTransformer transformer = null;
         switch (animStyle) {
-            case LoopAnimStyle.CUBE:
-                transformer = new CubeTransformer();
+            case LoopAnimStyle.ACCORDION_LEFT:
+                transformer = new AccordionLeftTransformer();
                 break;
-            case LoopAnimStyle.ACCORDION:
-                transformer = new AccordionTransformer();
+            case LoopAnimStyle.ACCORDION_UP:
+                transformer = new AccordionUpTransformer();
                 break;
-            case LoopAnimStyle.SCROLLUP:
-                transformer = new ScrollUpTransformer();
+            case LoopAnimStyle.CUBE_LEFT:
+                transformer = new CubeLeftTransformer();
+                break;
+            case LoopAnimStyle.CUBE_UP:
+                transformer = new CubeUpTransformer();
                 break;
         }
         setPageTransformer(animTime, transformer);
@@ -222,7 +240,10 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
 
     }
 
-    public View onCreateItemView(int index) {
+    private View onCreateItemView(int index) {
+        if (onCreateItemViewListener != null) {
+            return onCreateItemViewListener.getItemView(index);
+        }
         ImageView view = new ImageView(getContext());
         if (imgList != null) {
             Glide.with(getContext()).load(imgList.get(index)).centerCrop().into(view);
@@ -240,22 +261,22 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         @Override
         public void onPageSelected(int position) {
             int index = position % imgLength;
-         //   if (showIndex != -1){
-                if (loopDotsViews.size() > 0 && imgLength > 0) {
-                    for (LoopDotsView loopDotsView : loopDotsViews) {
-                        loopDotsView.updateDots(index, showIndex);
-                    }
+            //   if (showIndex != -1){
+            if (loopDotsViews.size() > 0 && imgLength > 0) {
+                for (LoopDotsView loopDotsView : loopDotsViews) {
+                    loopDotsView.updateDots(index, showIndex);
                 }
+            }
             //      }
-                if (loopTitleViews.size() > 0 && titleLength > 0) {
-                    for (LoopTitleView loopTitleView : loopTitleViews) {
-                        if (titleList != null) {
-                            loopTitleView.setText("" + titleList.get(index));
-                        } else if (titleArray != null) {
-                            loopTitleView.setText("" + titleArray[index]);
-                        }
+            if (loopTitleViews.size() > 0 && titleLength > 0) {
+                for (LoopTitleView loopTitleView : loopTitleViews) {
+                    if (titleList != null) {
+                        loopTitleView.setText("" + titleList.get(index));
+                    } else if (titleArray != null) {
+                        loopTitleView.setText("" + titleArray[index]);
                     }
                 }
+            }
 
             realIndex = position;
             showIndex = index;
@@ -266,7 +287,6 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         }
 
     }
-
 
     private void getLoopChild(ViewGroup viewGroup) {
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
@@ -284,7 +304,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         }
     }
 
-    public void start() {
+    private void start() {
         loopDotsViews.clear();
         loopTitleViews.clear();
         getLoopChild(this);
@@ -298,6 +318,16 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         if (loopTime > 0) {
             handler.sendEmptyMessageDelayed(CODE_SCROLL, loopTime);
         }
+    }
+
+    public interface OnCreateItemViewListener {
+        View getItemView(int position);
+    }
+
+    private OnCreateItemViewListener onCreateItemViewListener;
+
+    public void setOnCreateItemViewListener(OnCreateItemViewListener onCreateItemViewListener) {
+        this.onCreateItemViewListener = onCreateItemViewListener;
     }
 
 }

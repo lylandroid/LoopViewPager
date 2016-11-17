@@ -5,8 +5,9 @@ package com.itheima.loopviewpager;
  */
 public interface LoopAnimStyle {
 
-    int CUBE = 1;
-    int ACCORDION = 2;
-    int SCROLLUP = 3;
+    int ACCORDION_LEFT = 1;
+    int ACCORDION_UP = 2;
+    int CUBE_LEFT = 3;
+    int CUBE_UP = 4;
 
 }
