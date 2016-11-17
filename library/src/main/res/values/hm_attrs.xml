@@ -8,9 +8,10 @@
         <attr name="animTime" format="integer" />
         <!-- 动画效果，非必填 -->
         <attr name="animStyle" format="enum">
-            <enum name="Cube" value="1" />
-            <enum name="Accordion" value="2" />
-            <enum name="ScrollUp" value="3" />
+            <enum name="AccordionLeft" value="1" />
+            <enum name="AccordionUp" value="2" />
+            <enum name="CubeLeft" value="3" />
+            <enum name="CubeUp" value="4" />
         </attr>
         <!-- 是否可以手动滚动页面，默认true，非必填 -->
         <attr name="scrollEnable" format="boolean" />
