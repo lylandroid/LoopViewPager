@@ -3,11 +3,10 @@ package com.itheima.loopviewpager;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 
-import com.itheima.loopviewpager.dots.DotBaseView;
 import com.itheima.loopviewpager.dots.DotOvalView;
-import com.itheima.loopviewpager.dots.DotRectangleView;
 import com.itheima.loopviewpager.dots.DotStyle;
 import com.itheima.loopviewpager.dots.DotTriangleView;
 
@@ -44,9 +43,9 @@ public class LoopDotsView extends LinearLayout {
         params.width = dotWidth > 0 ? dotWidth : dotSize;
         params.height = dotHeight > 0 ? dotHeight : dotSize;
         for (int i = 0; i < length; i++) {
-            DotBaseView dotView = null;
+            View dotView = null;
             if (dotShape == DotStyle.RECTANGLE || (dotSelectResource != 0 && dotResource != 0)) {
-                dotView = new DotRectangleView(getContext());
+                dotView = new View(getContext());
             } else if (dotShape == DotStyle.OVAL) {
                 dotView = new DotOvalView(getContext());
             } else if (dotShape == DotStyle.TRIANGLE) {
