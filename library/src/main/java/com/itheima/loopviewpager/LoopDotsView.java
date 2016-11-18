@@ -59,7 +59,11 @@ public class LoopDotsView extends LinearLayout {
                     dotView.setBackgroundColor(dotSelectColor);
                 }
             } else {
-                params.setMargins(getOrientation() == VERTICAL ? 0 : (dotRange > 0 ? dotRange : dotSize), getOrientation() == VERTICAL ? (dotRange > 0 ? dotRange : dotSize) : 0, 0, 0);
+                if (getOrientation() == VERTICAL) {
+                    params.setMargins(0, dotRange > 0 ? dotRange : dotSize, 0, 0);
+                } else {
+                    params.setMargins(dotRange > 0 ? dotRange : dotSize, 0, 0, 0);
+                }
                 if (dotResource != 0) {
                     dotView.setBackgroundResource(dotResource);
                 } else {
