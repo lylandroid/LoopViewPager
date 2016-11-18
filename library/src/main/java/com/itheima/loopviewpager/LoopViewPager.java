@@ -19,6 +19,7 @@ import com.itheima.loopviewpager.anim.AccordionUpTransformer;
 import com.itheima.loopviewpager.anim.CubeLeftTransformer;
 import com.itheima.loopviewpager.anim.CubeUpTransformer;
 import com.itheima.loopviewpager.anim.FixedSpeedScroller;
+import com.itheima.loopviewpager.anim.TransformerStyle;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -47,6 +48,9 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
     private A[] imgArray;//图片数组数据
     private List<B> titleList;//标题集合数据
     private B[] titleArray;//标题数组数据
+
+    private List<View> imgViews;
+
     private int imgLength;//图片数据长度
     private int titleLength;//标题数据长度
 
@@ -154,16 +158,16 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
 
         ViewPager.PageTransformer transformer = null;
         switch (animStyle) {
-            case LoopAnimStyle.ACCORDION_LEFT:
+            case TransformerStyle.ACCORDION_LEFT:
                 transformer = new AccordionLeftTransformer();
                 break;
-            case LoopAnimStyle.ACCORDION_UP:
+            case TransformerStyle.ACCORDION_UP:
                 transformer = new AccordionUpTransformer();
                 break;
-            case LoopAnimStyle.CUBE_LEFT:
+            case TransformerStyle.CUBE_LEFT:
                 transformer = new CubeLeftTransformer();
                 break;
-            case LoopAnimStyle.CUBE_UP:
+            case TransformerStyle.CUBE_UP:
                 transformer = new CubeUpTransformer();
                 break;
         }
@@ -240,18 +244,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
 
     }
 
-    private View onCreateItemView(int index) {
-        if (onCreateItemViewListener != null) {
-            return onCreateItemViewListener.getItemView(index);
-        }
-        ImageView view = new ImageView(getContext());
-        if (imgList != null) {
-            Glide.with(getContext()).load(imgList.get(index)).centerCrop().into(view);
-        } else if (imgArray != null) {
-            Glide.with(getContext()).load(imgArray[index]).centerCrop().into(view);
-        }
-        return view;
-    }
+
 
     private class LoopPageChangeListener implements ViewPager.OnPageChangeListener {
         @Override
@@ -261,13 +254,11 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         @Override
         public void onPageSelected(int position) {
             int index = position % imgLength;
-            //   if (showIndex != -1){
             if (loopDotsViews.size() > 0 && imgLength > 0) {
                 for (LoopDotsView loopDotsView : loopDotsViews) {
-                    loopDotsView.updateDots(index, showIndex);
+                    loopDotsView.updateStatus(index, showIndex);
                 }
             }
-            //      }
             if (loopTitleViews.size() > 0 && titleLength > 0) {
                 for (LoopTitleView loopTitleView : loopTitleViews) {
                     if (titleList != null) {
@@ -277,7 +268,6 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
                     }
                 }
             }
-
             realIndex = position;
             showIndex = index;
         }
@@ -293,7 +283,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
             View view = viewGroup.getChildAt(i);
             if (view instanceof LoopDotsView) {
                 LoopDotsView loopDotsView = (LoopDotsView) view;
-                loopDotsView.initDots(imgLength);
+                loopDotsView.setDotsLength(imgLength);
                 loopDotsViews.add(loopDotsView);
             } else if (view instanceof LoopTitleView) {
                 LoopTitleView loopTitleView = (LoopTitleView) view;
@@ -318,6 +308,19 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         if (loopTime > 0) {
             handler.sendEmptyMessageDelayed(CODE_SCROLL, loopTime);
         }
+    }
+
+    private View onCreateItemView(int index) {
+        if (onCreateItemViewListener != null) {
+            return onCreateItemViewListener.getItemView(index);
+        }
+        ImageView view = new ImageView(getContext());
+        if (imgList != null) {
+            Glide.with(getContext()).load(imgList.get(index)).centerCrop().into(view);
+        } else if (imgArray != null) {
+            Glide.with(getContext()).load(imgArray[index]).centerCrop().into(view);
+        }
+        return view;
     }
 
     public interface OnCreateItemViewListener {

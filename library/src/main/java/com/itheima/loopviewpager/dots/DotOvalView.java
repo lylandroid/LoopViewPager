@@ -8,11 +8,9 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
-import android.widget.ImageView;
 
-public class DotOvalView extends ImageView {
+public class DotOvalView extends  DotBaseView{
 
-    private int color;
     private Paint paint;
 
     public DotOvalView(Context context) {
@@ -32,15 +30,16 @@ public class DotOvalView extends ImageView {
         Bitmap output = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
         paint.setAntiAlias(true);
-        paint.setColor(color);
+        paint.setColor(getDrawingCacheBackgroundColor());
         canvas.drawOval(new RectF(0, 0, getWidth(), getHeight()), paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawColor(Color.TRANSPARENT);
         return output;
     }
 
-    public void change(int color) {
-        this.color = color;
+    @Override
+    public void setBackgroundColor(int color) {
+        super.setBackgroundColor(color);
         invalidate();
     }
 

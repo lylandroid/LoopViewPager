@@ -1,9 +1,9 @@
-package com.itheima.loopviewpager;
+package com.itheima.loopviewpager.anim;
 
 /**
  * 动画效果
  */
-public interface LoopAnimStyle {
+public interface TransformerStyle {
 
     int ACCORDION_LEFT = 1;
     int ACCORDION_UP = 2;
