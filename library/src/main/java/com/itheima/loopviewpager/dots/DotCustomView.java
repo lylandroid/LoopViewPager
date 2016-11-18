@@ -10,23 +10,21 @@ import android.view.View;
 
 public abstract class DotCustomView extends View {
 
-    public int color;
-    public Paint paint;
+    private int color;
 
     public DotCustomView(Context context) {
         super(context);
-        paint = new Paint();
-        paint.setAntiAlias(true);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
         paint.setColor(color);
-        customDraw(canvas);
+        customDraw(canvas, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawColor(Color.TRANSPARENT);
-        paint.reset();
     }
 
     @Override
@@ -35,6 +33,6 @@ public abstract class DotCustomView extends View {
         invalidate();
     }
 
-    public abstract void customDraw(Canvas canvas);
+    public abstract void customDraw(Canvas canvas, Paint paint);
 
 }
