@@ -78,6 +78,11 @@ dependencies {
 
 </resources>
 ```
+#配置说明
+###1）loopTime的值应不小于1s，如果值为0，则不自动轮播
+###2）animTime的值应小于loopTime
+###3）dotWidth、dotHeight、dotRange如果没有设置，则默认值为dotSize
+###4）如果设置了dotResource、dotSelectResource，则dotShape、dotColor、dotSelectColor配置不生效
 
 
 #代码示例
