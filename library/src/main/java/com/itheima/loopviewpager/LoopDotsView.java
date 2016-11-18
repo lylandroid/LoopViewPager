@@ -79,19 +79,19 @@ public class LoopDotsView extends LinearLayout {
         }
     }
 
-    public void updateStatus(int index, int dotIndex) {
-        if (index >= 0) {
+    public void update(int currentIndex, int oldIndex) {
+        if (currentIndex >= 0) {
             if (dotSelectResource != 0) {
-                getChildAt(index).setBackgroundResource(dotSelectResource);
+                getChildAt(currentIndex).setBackgroundResource(dotSelectResource);
             } else {
-                getChildAt(index).setBackgroundColor(dotSelectColor);
+                getChildAt(currentIndex).setBackgroundColor(dotSelectColor);
             }
         }
-        if (dotIndex >= 0) {
+        if (oldIndex >= 0) {
             if (dotResource != 0) {
-                getChildAt(dotIndex).setBackgroundResource(dotResource);
+                getChildAt(oldIndex).setBackgroundResource(dotResource);
             } else {
-                getChildAt(dotIndex).setBackgroundColor(dotColor);
+                getChildAt(oldIndex).setBackgroundColor(dotColor);
             }
         }
     }
