@@ -14,12 +14,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.itheima.loopviewpager.anim.AccordionLeftTransformer;
-import com.itheima.loopviewpager.anim.AccordionUpTransformer;
-import com.itheima.loopviewpager.anim.CubeLeftTransformer;
-import com.itheima.loopviewpager.anim.CubeUpTransformer;
+import com.itheima.loopviewpager.anim.AccordionTransformer;
+import com.itheima.loopviewpager.anim.CubeTransformer;
 import com.itheima.loopviewpager.anim.FixedSpeedScroller;
-import com.itheima.loopviewpager.anim.TransformerStyle;
+import com.itheima.loopviewpager.anim.AnimStyle;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -48,8 +46,6 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
     private A[] imgArray;//图片数组数据
     private List<B> titleList;//标题集合数据
     private B[] titleArray;//标题数组数据
-
-    private List<View> imgViews;
 
     private int imgLength;//图片数据长度
     private int titleLength;//标题数据长度
@@ -158,17 +154,11 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
 
         ViewPager.PageTransformer transformer = null;
         switch (animStyle) {
-            case TransformerStyle.ACCORDION_LEFT:
-                transformer = new AccordionLeftTransformer();
+            case AnimStyle.ACCORDION:
+                transformer = new AccordionTransformer();
                 break;
-            case TransformerStyle.ACCORDION_UP:
-                transformer = new AccordionUpTransformer();
-                break;
-            case TransformerStyle.CUBE_LEFT:
-                transformer = new CubeLeftTransformer();
-                break;
-            case TransformerStyle.CUBE_UP:
-                transformer = new CubeUpTransformer();
+            case AnimStyle.CUBE:
+                transformer = new CubeTransformer();
                 break;
         }
         setPageTransformer(animTime, transformer);
