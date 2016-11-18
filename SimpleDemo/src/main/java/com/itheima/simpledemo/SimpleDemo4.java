@@ -27,13 +27,13 @@ public class SimpleDemo4 extends AppCompatActivity {
             @Override
             public void transformPage(View view, float position) {
                 if (position <= 0) {
-                    view.setPivotX(view.getMeasuredWidth());
-                    view.setPivotY(view.getMeasuredHeight() * 0.5f);
-                    view.setRotationY(90f * position);
+                    view.setPivotX(view.getMeasuredWidth() * 0.5f);
+                    view.setPivotY(view.getMeasuredHeight());
+                    view.setRotationX(90f*(1+position));
                 } else if (position <= 1) {
-                    view.setPivotX(0);
-                    view.setPivotY(view.getMeasuredHeight() * 0.5f);
-                    view.setRotationY(90f * position);
+//                    view.setPivotX(0);
+//                    view.setPivotY(view.getMeasuredHeight() * 0.5f);
+//                    view.setRotationY(90f * position);
                 }
             }
         });

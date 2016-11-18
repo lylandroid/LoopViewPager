@@ -49,21 +49,21 @@ public class DataFactory {
 
     public static List<String> titleListString() {
         List<String> imageData = new ArrayList<>();
-        imageData.add("在这里等着你");
-        imageData.add("在你身边");
-        imageData.add("打电话给你就是想说声“嗨”");
-        imageData.add("不介意你对我大喊大叫");
-        imageData.add("期待你总是尽全力");
+        imageData.add("1、在这里等着你");
+        imageData.add("2、在你身边");
+        imageData.add("3、打电话给你就是想说声“嗨”");
+        imageData.add("4、不介意你对我大喊大叫");
+        imageData.add("5、期待你总是尽全力");
         return imageData;
     }
 
     public static String[] titleArrayString() {
         String[] imageData = new String[]{
-                "在这里等着你",
-                "在你身边",
-                "打电话给你就是想说声“嗨”",
-                "不介意你对我大喊大叫",
-                "期待你总是尽全力",
+                "1、在这里等着你",
+                "2、在你身边",
+                "3、打电话给你就是想说声“嗨”",
+                "4、不介意你对我大喊大叫",
+                "5、期待你总是尽全力",
         };
         return imageData;
     }
