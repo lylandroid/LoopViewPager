@@ -23,7 +23,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchListener {
+public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListener {
 
     private int loopTime;
     private int animTime;
@@ -256,14 +256,14 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         }
     }
 
-    private List imgList;//图片集合数据
-    private A[] imgArray;//图片数组数据
+    private List<T> imgList;//图片集合数据
+    private T[] imgArray;//图片数组数据
     private int imgLength;//图片数据长度
-    private List titleList;//标题集合数据
-    private B[] titleArray;//标题数组数据
+    private List<String> titleList;//标题集合数据
+    private String[] titleArray;//标题数组数据
     private int titleLength;//标题数据长度
 
-    public void setImgData(List imgList) {
+    public void setImgData(List<T> imgList) {
         this.imgList = imgList;
         this.imgArray = null;
         this.imgLength = imgList.size();
@@ -273,7 +273,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         start();
     }
 
-    public void setImgData(A[] imgArray) {
+    public void setImgData(T[] imgArray) {
         this.imgArray = imgArray;
         this.imgList = null;
         this.imgLength = imgArray.length;
@@ -283,7 +283,27 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         start();
     }
 
-    public void setImgAndTitleData(List imgList, List<B> titleList) {
+    public void setTitleData(List<String> titleList) {
+        this.imgList = null;
+        this.imgArray = null;
+        this.imgLength = titleList.size();
+        this.titleList = titleList;
+        this.titleArray = null;
+        this.titleLength = titleList.size();
+        start();
+    }
+
+    public void setTitleData(String[] imgArray) {
+        this.imgArray = null;
+        this.imgList = null;
+        this.imgLength = imgArray.length;
+        this.titleList = null;
+        this.titleArray = imgArray;
+        this.titleLength = imgArray.length;
+        start();
+    }
+
+    public void setImgAndTitleData(List<T> imgList, List<String> titleList) {
         this.imgList = imgList;
         this.imgArray = null;
         this.imgLength = imgList.size();
@@ -293,7 +313,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         start();
     }
 
-    public void setImgAndTitleData(List imgList, B[] titleArray) {
+    public void setImgAndTitleData(List<T> imgList, String[] titleArray) {
         this.imgList = imgList;
         this.imgArray = null;
         this.imgLength = imgList.size();
@@ -303,7 +323,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         start();
     }
 
-    public void setImgAndTitleData(A[] imgArray, List titleList) {
+    public void setImgAndTitleData(T[] imgArray, List<String> titleList) {
         this.imgList = null;
         this.imgArray = imgArray;
         this.imgLength = imgArray.length;
@@ -313,7 +333,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         start();
     }
 
-    public void setImgAndTitleData(A[] imgArray, B[] titleArray) {
+    public void setImgAndTitleData(T[] imgArray, String[] titleArray) {
         this.imgList = null;
         this.imgArray = imgArray;
         this.imgLength = imgArray.length;
