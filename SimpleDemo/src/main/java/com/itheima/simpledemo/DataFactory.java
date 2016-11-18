@@ -5,6 +5,9 @@ import java.util.List;
 
 public class DataFactory {
 
+    /**
+     * 图片String集合
+     */
     public static List<String> imgListString() {
         List<String> imageData = new ArrayList<>();
         imageData.add("http://d.hiphotos.baidu.com/image/h%3D200/sign=72b32dc4b719ebc4df787199b227cf79/58ee3d6d55fbb2fb48944ab34b4a20a44723dcd7.jpg");
@@ -15,16 +18,9 @@ public class DataFactory {
         return imageData;
     }
 
-    public static List<Integer> imgListInt() {
-        List<Integer> imageData = new ArrayList<>();
-        imageData.add(R.mipmap.a);
-        imageData.add(R.mipmap.b);
-        imageData.add(R.mipmap.c);
-        imageData.add(R.mipmap.d);
-        imageData.add(R.mipmap.e);
-        return imageData;
-    }
-
+    /**
+     * 图片String数组
+     */
     public static String[] imgArrayString() {
         String[] imageData = new String[]{
                 "http://d.hiphotos.baidu.com/image/h%3D200/sign=72b32dc4b719ebc4df787199b227cf79/58ee3d6d55fbb2fb48944ab34b4a20a44723dcd7.jpg",
@@ -36,6 +32,22 @@ public class DataFactory {
         return imageData;
     }
 
+    /**
+     * 图片Integer集合
+     */
+    public static List<Integer> imgListInt() {
+        List<Integer> imageData = new ArrayList<>();
+        imageData.add(R.mipmap.a);
+        imageData.add(R.mipmap.b);
+        imageData.add(R.mipmap.c);
+        imageData.add(R.mipmap.d);
+        imageData.add(R.mipmap.e);
+        return imageData;
+    }
+
+    /**
+     * 图片Integer数组
+     */
     public static Integer[] imgArrayInt() {
         Integer[] imageData = new Integer[]{
                 R.mipmap.a,
@@ -47,25 +59,31 @@ public class DataFactory {
         return imageData;
     }
 
+    /**
+     * 标题String集合
+     */
     public static List<String> titleListString() {
-        List<String> imageData = new ArrayList<>();
-        imageData.add("1、在这里等着你");
-        imageData.add("2、在你身边");
-        imageData.add("3、打电话给你就是想说声“嗨”");
-        imageData.add("4、不介意你对我大喊大叫");
-        imageData.add("5、期待你总是尽全力");
-        return imageData;
+        List<String> titleData = new ArrayList<>();
+        titleData.add("1、在这里等着你");
+        titleData.add("2、在你身边");
+        titleData.add("3、打电话给你就是想说声“嗨”");
+        titleData.add("4、不介意你对我大喊大叫");
+        titleData.add("5、期待你总是尽全力");
+        return titleData;
     }
 
+    /**
+     * 标题String数组
+     */
     public static String[] titleArrayString() {
-        String[] imageData = new String[]{
+        String[] titleData = new String[]{
                 "1、在这里等着你",
                 "2、在你身边",
                 "3、打电话给你就是想说声“嗨”",
                 "4、不介意你对我大喊大叫",
                 "5、期待你总是尽全力",
         };
-        return imageData;
+        return titleData;
     }
 
 }

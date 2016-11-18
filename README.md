@@ -17,7 +17,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.itcastsh:loopviewpager:1.2.0'
+    compile 'com.github.itcastsh:loopviewpager:1.2.1'
 }
 ```
 
@@ -153,7 +153,7 @@ dependencies {
 ```
 
 #运行效果
-![image](https://github.com/itcastsh/LoopViewPager/blob/master/gif/v1.2.0.gif)
+![image](https://github.com/itcastsh/LoopViewPager/blob/master/gif/v1.2.1.gif)
 
 #最低版本
 v14+

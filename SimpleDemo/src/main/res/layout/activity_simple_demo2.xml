@@ -5,48 +5,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="2、添加标题和圆点" />
-
     <com.itheima.loopviewpager.LoopViewPager
         android:id="@+id/lvp_pager"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:loopTime="3000"
-        app:animTime="1000"
-        app:animStyle="cube">
+        app:loopTime="3000">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.itheima.loopviewpager.LoopTitleView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="#55000000"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_gravity="bottom|center_horizontal"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textColor="#0000FF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-
-            <com.itheima.loopviewpager.LoopTitleView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="#FF0000"
-                android:textSize="16sp" />
-
-            <com.itheima.loopviewpager.LoopDotsView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                app:dotColor="#FFFFFF"
-                app:dotSelectColor="#FF0000"
-                app:dotShape="oval"
-                app:dotSize="10dp" />
-
-        </LinearLayout>
+        <com.itheima.loopviewpager.LoopDotsView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            app:dotResource="@mipmap/dot_normal"
+            app:dotSelectResource="@mipmap/dot_selected"
+            app:dotSize="15dp" />
 
     </com.itheima.loopviewpager.LoopViewPager>
 
