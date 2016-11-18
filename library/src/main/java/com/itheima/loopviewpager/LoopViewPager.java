@@ -15,9 +15,9 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.itheima.loopviewpager.anim.AccordionTransformer;
+import com.itheima.loopviewpager.anim.AnimStyle;
 import com.itheima.loopviewpager.anim.CubeTransformer;
 import com.itheima.loopviewpager.anim.FixedSpeedScroller;
-import com.itheima.loopviewpager.anim.AnimStyle;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -25,6 +25,25 @@ import java.util.List;
 
 public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchListener {
 
+    private int loopTime;
+    private int animTime;
+    private int animStyle;
+    private boolean scrollEnable;
+    private boolean touchEnable;
+
+    public LoopViewPager(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LoopViewPager);
+        loopTime = a.getInt(R.styleable.LoopViewPager_loopTime, 0);
+        animTime = a.getInt(R.styleable.LoopViewPager_animTime, 0);
+        animStyle = a.getInt(R.styleable.LoopViewPager_animStyle, 0);
+        scrollEnable = a.getBoolean(R.styleable.LoopViewPager_scrollEnable, true);
+        touchEnable = a.getBoolean(R.styleable.LoopViewPager_touchEnable, true);
+        a.recycle();
+        init();
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
     private final int MIN_TIME = 1000;//最小轮播间隔时间
     private final int CODE_SCROLL = 1;//轮播消息
 
@@ -36,11 +55,6 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
     private int realIndex;//真实的索引
     private int showIndex;//展示的索引
 
-    private int loopTime;
-    private int animTime;
-    private int animStyle;
-    private boolean scrollEnable;
-    private boolean touchEnable;
 
     private List<A> imgList;//图片集合数据
     private A[] imgArray;//图片数组数据
@@ -130,16 +144,8 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         start();
     }
 
-    public LoopViewPager(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LoopViewPager);
-        loopTime = a.getInt(R.styleable.LoopViewPager_loopTime, 0);
-        animTime = a.getInt(R.styleable.LoopViewPager_animTime, 0);
-        animStyle = a.getInt(R.styleable.LoopViewPager_animStyle, 0);
-        scrollEnable = a.getBoolean(R.styleable.LoopViewPager_scrollEnable, true);
-        touchEnable = a.getBoolean(R.styleable.LoopViewPager_touchEnable, true);
-        a.recycle();
 
+    private void init() {
         View.inflate(getContext(), R.layout.hm_loopviewpager, this);
         viewPager = (ViewPager) findViewById(R.id.vp_pager);
 
@@ -233,7 +239,6 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         }
 
     }
-
 
 
     private class LoopPageChangeListener implements ViewPager.OnPageChangeListener {

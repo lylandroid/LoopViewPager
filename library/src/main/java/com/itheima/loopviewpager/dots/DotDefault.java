@@ -1,8 +1,8 @@
-package com.itheima.loopviewpager;
+package com.itheima.loopviewpager.dots;
 
 import com.itheima.loopviewpager.dots.DotStyle;
 
-public interface LoopDefault {
+public interface DotDefault {
 
     int dotShape = DotStyle.RECTANGLE;
     int dotColor  = 0x55000000;

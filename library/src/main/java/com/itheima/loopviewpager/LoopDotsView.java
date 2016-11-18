@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.itheima.loopviewpager.dots.DotDefault;
 import com.itheima.loopviewpager.dots.DotDiamondView;
 import com.itheima.loopviewpager.dots.DotOvalView;
 import com.itheima.loopviewpager.dots.DotStyle;
@@ -30,9 +31,9 @@ public class LoopDotsView extends LinearLayout {
         dotWidth = (int) a.getDimension(R.styleable.LoopDotsView_dotWidth, 0);
         dotHeight = (int) a.getDimension(R.styleable.LoopDotsView_dotHeight, 0);
         dotRange = (int) a.getDimension(R.styleable.LoopDotsView_dotRange, 0);
-        dotShape = a.getInt(R.styleable.LoopDotsView_dotShape, LoopDefault.dotShape);
-        dotColor = a.getColor(R.styleable.LoopDotsView_dotColor, LoopDefault.dotColor);
-        dotSelectColor = a.getColor(R.styleable.LoopDotsView_dotSelectColor, LoopDefault.dotSelectColor);
+        dotShape = a.getInt(R.styleable.LoopDotsView_dotShape, DotDefault.dotShape);
+        dotColor = a.getColor(R.styleable.LoopDotsView_dotColor, DotDefault.dotColor);
+        dotSelectColor = a.getColor(R.styleable.LoopDotsView_dotSelectColor, DotDefault.dotSelectColor);
         dotResource = a.getResourceId(R.styleable.LoopDotsView_dotResource, 0);
         dotSelectResource = a.getResourceId(R.styleable.LoopDotsView_dotSelectResource, 0);
         a.recycle();
