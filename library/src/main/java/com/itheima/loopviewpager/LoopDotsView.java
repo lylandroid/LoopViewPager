@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.itheima.loopviewpager.dots.DotDiamondView;
 import com.itheima.loopviewpager.dots.DotOvalView;
 import com.itheima.loopviewpager.dots.DotStyle;
 import com.itheima.loopviewpager.dots.DotTriangleView;
@@ -50,6 +51,8 @@ public class LoopDotsView extends LinearLayout {
                 dotView = new DotOvalView(getContext());
             } else if (dotShape == DotStyle.TRIANGLE) {
                 dotView = new DotTriangleView(getContext());
+            } else if (dotShape == DotStyle.DIAMOND) {
+                dotView = new DotDiamondView(getContext());
             }
             if (i == 0) {
                 params.setMargins(0, 0, 0, 0);

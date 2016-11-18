@@ -4,9 +4,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Path;
 
-public class DotTriangleView extends DotCustomView {
+public class DotDiamondView extends DotCustomView {
 
-    public DotTriangleView(Context context) {
+    public DotDiamondView(Context context) {
         super(context);
     }
 
@@ -14,8 +14,9 @@ public class DotTriangleView extends DotCustomView {
     public void customDraw(Canvas canvas) {
         Path path = new Path();
         path.moveTo(getWidth() / 2, 0);
-        path.lineTo(0, getHeight());
-        path.lineTo(getWidth(), getHeight());
+        path.lineTo(0, getHeight()/2);
+        path.lineTo(getWidth()/2, getHeight());
+        path.lineTo(getWidth(), getHeight()/2);
         path.lineTo(getWidth() / 2, 0);
         canvas.drawPath(path, paint);
     }
