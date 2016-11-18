@@ -37,7 +37,7 @@
             <enum name="oval" value="2" />
             <!-- 三角形 -->
             <enum name="triangle" value="3" />
-            <!-- 三角形 -->
+            <!-- 菱形 -->
             <enum name="diamond" value="4" />
         </attr>
         <!-- 圆点颜色，默认值0xFFFFFFFF -->
