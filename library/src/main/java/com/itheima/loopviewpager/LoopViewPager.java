@@ -31,6 +31,30 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
     private boolean scrollEnable;
     private boolean touchEnable;
 
+    private ViewPager viewPager;
+    private final int MIN_TIME = 1000;
+    private final int CODE = 1;
+
+    private List<LoopDotsView> loopDotsViews;
+    private List<LoopTitleView> loopTitleViews;
+    private int realIndex;
+    private int showIndex;
+    private LoopPagerAdapter loopPagerAdapter;
+    private LoopPageChangeListener pageChangeListener;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case CODE:
+                    realIndex++;
+                    viewPager.setCurrentItem(realIndex);
+                    handler.sendEmptyMessageDelayed(CODE, loopTime);
+                    break;
+            }
+        }
+    };
+
     public LoopViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LoopViewPager);
@@ -43,111 +67,11 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         init();
     }
 
-    /////////////////////////////////////////////////////////////////////////////////
-    private final int MIN_TIME = 1000;//最小轮播间隔时间
-    private final int CODE_SCROLL = 1;//轮播消息
-
-    private ViewPager viewPager;
-
-
-    private List<LoopDotsView> loopDotsViews = new ArrayList<>();//轮播圆点
-    private List<LoopTitleView> loopTitleViews = new ArrayList<>();//轮播文本
-    private int realIndex;//真实的索引
-    private int showIndex;//展示的索引
-
-
-    private List<A> imgList;//图片集合数据
-    private A[] imgArray;//图片数组数据
-    private List<B> titleList;//标题集合数据
-    private B[] titleArray;//标题数组数据
-
-    private int imgLength;//图片数据长度
-    private int titleLength;//标题数据长度
-
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case CODE_SCROLL:
-                    realIndex++;
-                    viewPager.setCurrentItem(realIndex);
-                    handler.sendEmptyMessageDelayed(CODE_SCROLL, loopTime);
-                    break;
-            }
-        }
-    };
-
-    public void setImgData(List<A> imgList) {
-        this.imgList = imgList;
-        imgArray = null;
-        titleList = null;
-        titleArray = null;
-        imgLength = imgList.size();
-        titleLength = 0;
-        start();
-    }
-
-    public void setImgData(A[] imgArray) {
-        this.imgArray = imgArray;
-        imgList = null;
-        titleList = null;
-        titleArray = null;
-        imgLength = imgArray.length;
-        titleLength = 0;
-        start();
-    }
-
-    //////////////////////////////////////
-    public void setImgView(View[] imgArray) {
-        imgArray = imgArray;
-        imgList = null;
-        titleList = null;
-        titleArray = null;
-        imgLength = imgArray.length;
-        titleLength = 0;
-        start();
-    }
-
-    public void setImgAndTitleData(List<A> imgList, List<B> titleList) {
-        this.imgList = imgList;
-        this.titleList = titleList;
-        imgArray = null;
-        titleArray = null;
-        imgLength = imgList.size();
-        titleLength = titleList.size();
-        start();
-    }
-
-    public void setImgAndTitleData(List<A> imgList, B[] titleArray) {
-        this.imgList = imgList;
-        this.titleArray = titleArray;
-        imgArray = null;
-        titleList = null;
-        imgLength = imgList.size();
-        titleLength = titleArray.length;
-        start();
-    }
-
-    public void setImgAndTitleData(A[] imgArray, List<B> titleList) {
-        this.imgArray = imgArray;
-        this.titleList = titleList;
-        imgLength = imgArray.length;
-        titleLength = titleList.size();
-        start();
-    }
-
-    public void setImgAndTitleData(A[] imgArray, B[] titleArray) {
-        this.imgArray = imgArray;
-        this.titleArray = titleArray;
-        imgLength = imgArray.length;
-        titleLength = titleArray.length;
-        start();
-    }
-
-
     private void init() {
-        View.inflate(getContext(), R.layout.hm_loopviewpager, this);
-        viewPager = (ViewPager) findViewById(R.id.vp_pager);
+        loopDotsViews = new ArrayList<>();//轮播圆点
+        loopTitleViews = new ArrayList<>();//轮播文本
+        realIndex = -1;//真实的索引
+        showIndex = -1;//展示的索引
 
         // loopTime必须大于MIN_TIME
         if (loopTime > 0 && loopTime < MIN_TIME) {
@@ -157,7 +81,8 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         if (animTime > 0 && animTime > loopTime) {
             animTime = loopTime;
         }
-
+        View.inflate(getContext(), R.layout.hm_loopviewpager, this);
+        viewPager = (ViewPager) findViewById(R.id.vp_pager);
         ViewPager.PageTransformer transformer = null;
         switch (animStyle) {
             case AnimStyle.ACCORDION:
@@ -198,7 +123,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
                     handler.removeCallbacksAndMessages(null);
                     break;
                 case MotionEvent.ACTION_UP:
-                    handler.sendEmptyMessageDelayed(CODE_SCROLL, loopTime);
+                    handler.sendEmptyMessageDelayed(CODE, loopTime);
                     break;
             }
         }
@@ -218,7 +143,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
 
         @Override
         public int getCount() {
-            return Integer.MAX_VALUE;
+            return imgLength > 0 ? Integer.MAX_VALUE : 0;
         }
 
         @Override
@@ -228,7 +153,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            View view = onCreateItemView(position % imgLength);
+            View view = getDefaultItemView(position % imgLength);
             container.addView(view);
             return view;
         }
@@ -240,7 +165,6 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
 
     }
 
-
     private class LoopPageChangeListener implements ViewPager.OnPageChangeListener {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -248,29 +172,72 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
 
         @Override
         public void onPageSelected(int position) {
-            int index = position % imgLength;
+            int currentIndex = position % imgLength;
             if (loopDotsViews.size() > 0 && imgLength > 0) {
                 for (LoopDotsView loopDotsView : loopDotsViews) {
-                    loopDotsView.updateStatus(index, showIndex);
+                    loopDotsView.update(currentIndex, showIndex);
                 }
             }
             if (loopTitleViews.size() > 0 && titleLength > 0) {
                 for (LoopTitleView loopTitleView : loopTitleViews) {
                     if (titleList != null) {
-                        loopTitleView.setText("" + titleList.get(index));
+                        loopTitleView.setText("" + titleList.get(currentIndex));
                     } else if (titleArray != null) {
-                        loopTitleView.setText("" + titleArray[index]);
+                        loopTitleView.setText("" + titleArray[currentIndex]);
                     }
                 }
             }
             realIndex = position;
-            showIndex = index;
+            showIndex = currentIndex;
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
         }
 
+    }
+
+    private View getDefaultItemView(int currentIndex) {
+        View view = null;
+        if (onCreateItemViewListener != null) {
+            view = onCreateItemViewListener.getItemView(currentIndex);
+        }
+        if (view == null) {
+            view = new ImageView(getContext());
+            if (imgList != null) {
+                Glide.with(getContext()).load(imgList.get(currentIndex)).centerCrop().into((ImageView) view);
+            } else if (imgArray != null) {
+                Glide.with(getContext()).load(imgArray[currentIndex]).centerCrop().into((ImageView) view);
+            }
+        }
+        return view;
+    }
+
+    public interface OnCreateItemViewListener {
+        View getItemView(int position);
+    }
+
+    private OnCreateItemViewListener onCreateItemViewListener;
+
+    public void setOnCreateItemViewListener(OnCreateItemViewListener onCreateItemViewListener) {
+        this.onCreateItemViewListener = onCreateItemViewListener;
+    }
+
+    private void start() {
+        loopDotsViews.clear();
+        loopTitleViews.clear();
+        getLoopChild(this);
+        loopPagerAdapter = new LoopPagerAdapter();
+        pageChangeListener = new LoopPageChangeListener();
+        realIndex = 1000 * imgLength;
+        viewPager.setOnPageChangeListener(pageChangeListener);
+        viewPager.setAdapter(loopPagerAdapter);
+        viewPager.setOnTouchListener(this);
+        viewPager.setCurrentItem(realIndex);
+        handler.removeCallbacksAndMessages(null);
+        if (loopTime > 0) {
+            handler.sendEmptyMessageDelayed(CODE, loopTime);
+        }
     }
 
     private void getLoopChild(ViewGroup viewGroup) {
@@ -289,43 +256,71 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         }
     }
 
-    private void start() {
-        loopDotsViews.clear();
-        loopTitleViews.clear();
-        getLoopChild(this);
-        realIndex = 1000 * imgLength;
-        showIndex = -1;
-        viewPager.setOnPageChangeListener(new LoopPageChangeListener());
-        viewPager.setAdapter(new LoopPagerAdapter());
-        viewPager.setOnTouchListener(this);
-        viewPager.setCurrentItem(realIndex);
-        handler.removeCallbacksAndMessages(null);
-        if (loopTime > 0) {
-            handler.sendEmptyMessageDelayed(CODE_SCROLL, loopTime);
-        }
+    private List imgList;//图片集合数据
+    private A[] imgArray;//图片数组数据
+    private int imgLength;//图片数据长度
+    private List titleList;//标题集合数据
+    private B[] titleArray;//标题数组数据
+    private int titleLength;//标题数据长度
+
+    public void setImgData(List imgList) {
+        this.imgList = imgList;
+        this.imgArray = null;
+        this.imgLength = imgList.size();
+        this.titleList = null;
+        this.titleArray = null;
+        this.titleLength = 0;
+        start();
     }
 
-    private View onCreateItemView(int index) {
-        if (onCreateItemViewListener != null) {
-            return onCreateItemViewListener.getItemView(index);
-        }
-        ImageView view = new ImageView(getContext());
-        if (imgList != null) {
-            Glide.with(getContext()).load(imgList.get(index)).centerCrop().into(view);
-        } else if (imgArray != null) {
-            Glide.with(getContext()).load(imgArray[index]).centerCrop().into(view);
-        }
-        return view;
+    public void setImgData(A[] imgArray) {
+        this.imgArray = imgArray;
+        this.imgList = null;
+        this.imgLength = imgArray.length;
+        this.titleList = null;
+        this.titleArray = null;
+        this.titleLength = 0;
+        start();
     }
 
-    public interface OnCreateItemViewListener {
-        View getItemView(int position);
+    public void setImgAndTitleData(List imgList, List<B> titleList) {
+        this.imgList = imgList;
+        this.imgArray = null;
+        this.imgLength = imgList.size();
+        this.titleList = titleList;
+        this.titleArray = null;
+        this.titleLength = titleList.size();
+        start();
     }
 
-    private OnCreateItemViewListener onCreateItemViewListener;
+    public void setImgAndTitleData(List imgList, B[] titleArray) {
+        this.imgList = imgList;
+        this.imgArray = null;
+        this.imgLength = imgList.size();
+        this.titleList = null;
+        this.titleArray = titleArray;
+        this.titleLength = titleArray.length;
+        start();
+    }
 
-    public void setOnCreateItemViewListener(OnCreateItemViewListener onCreateItemViewListener) {
-        this.onCreateItemViewListener = onCreateItemViewListener;
+    public void setImgAndTitleData(A[] imgArray, List titleList) {
+        this.imgList = null;
+        this.imgArray = imgArray;
+        this.imgLength = imgArray.length;
+        this.titleList = titleList;
+        this.titleArray = null;
+        this.titleLength = titleList.size();
+        start();
+    }
+
+    public void setImgAndTitleData(A[] imgArray, B[] titleArray) {
+        this.imgList = null;
+        this.imgArray = imgArray;
+        this.imgLength = imgArray.length;
+        this.titleList = null;
+        this.titleArray = titleArray;
+        this.titleLength = titleArray.length;
+        start();
     }
 
 }
