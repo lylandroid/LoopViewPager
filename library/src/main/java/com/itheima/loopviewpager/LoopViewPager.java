@@ -310,7 +310,7 @@ public class LoopViewPager<A, B> extends FrameLayout implements View.OnTouchList
         getLoopChild(this);
         realIndex = 1000 * imgLength;
         showIndex = -1;
-        viewPager.addOnPageChangeListener(new LoopPageChangeListener());
+        viewPager.setOnPageChangeListener(new LoopPageChangeListener());
         viewPager.setAdapter(new LoopPagerAdapter());
         viewPager.setOnTouchListener(this);
         viewPager.setCurrentItem(realIndex);
