@@ -2,20 +2,20 @@
 <resources>
 
     <declare-styleable name="LoopViewPager">
-        <!-- 轮播时间，必须大于1s，0表示不自动轮播，非必填 -->
+        <!-- 轮播时间，默认值0表示不自动轮播 -->
         <attr name="loopTime" format="integer" />
-        <!-- 动画时间，必须小于loopTime，非必填 -->
+        <!-- 动画时间 -->
         <attr name="animTime" format="integer" />
-        <!-- 动画效果，非必填 -->
+        <!-- 动画效果 -->
         <attr name="animStyle" format="enum">
-            <enum name="AccordionLeft" value="1" />
-            <enum name="AccordionUp" value="2" />
-            <enum name="CubeLeft" value="3" />
-            <enum name="CubeUp" value="4" />
+            <!-- 折叠效果 -->
+            <enum name="accordion" value="1" />
+            <!-- 立方体效果 -->
+            <enum name="cube" value="2" />
         </attr>
-        <!-- 是否可以手动滚动页面，默认true，非必填 -->
+        <!-- 是否可以手动滚动页面，默认true -->
         <attr name="scrollEnable" format="boolean" />
-        <!-- 触摸页面是否停止轮播,默认true，非必填 -->
+        <!-- 触摸页面是否停止轮播，默认true -->
         <attr name="touchEnable" format="boolean" />
     </declare-styleable>
 
