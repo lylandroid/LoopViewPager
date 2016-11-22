@@ -251,6 +251,7 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
     }
 
     public void stop() {
+        clear();
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }
@@ -292,7 +293,7 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
         if (imgLength > 0)
             return this;
         else {
-            throw
+            throw new IllegalArgumentException();
         }
     }
 
@@ -306,9 +307,15 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
         }
         if (titleLength > 0)
             return this;
-        else {
-            return null;
-        }
+        else
+            throw new IllegalArgumentException();
+    }
+
+    public void clear() {
+        imgData = null;
+        titleData = null;
+        imgLength = 0;
+        titleLength = 0;
     }
 
     /**
