@@ -14,11 +14,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.itheima.loopviewpager.anim.AccordionTransformer;
-import com.itheima.loopviewpager.anim.AnimOrientation;
 import com.itheima.loopviewpager.anim.AnimStyle;
-import com.itheima.loopviewpager.anim.CubeTransformer;
 import com.itheima.loopviewpager.anim.FixedSpeedScroller;
+import com.itheima.loopviewpager.anim.transformer.AccordionTransformer;
+import com.itheima.loopviewpager.anim.transformer.AccordionUpTransformer;
+import com.itheima.loopviewpager.anim.transformer.CubeTransformer;
+import com.itheima.loopviewpager.anim.transformer.CubeUpTransformer;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
     private int loopTime;
     private int animTime;
     private int animStyle;
-    private int animOrientation;
     private boolean scrollEnable;
     private boolean touchEnable;
 
@@ -63,7 +63,6 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
         loopTime = a.getInt(R.styleable.LoopViewPager_loopTime, 0);
         animTime = a.getInt(R.styleable.LoopViewPager_animTime, 0);
         animStyle = a.getInt(R.styleable.LoopViewPager_animStyle, 0);
-        animOrientation = a.getInt(R.styleable.LoopViewPager_animOrientation, AnimOrientation.HORIZONTAL);
         scrollEnable = a.getBoolean(R.styleable.LoopViewPager_scrollEnable, true);
         touchEnable = a.getBoolean(R.styleable.LoopViewPager_touchEnable, true);
         a.recycle();
@@ -89,10 +88,16 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
         ViewPager.PageTransformer transformer = null;
         switch (animStyle) {
             case AnimStyle.ACCORDION:
-                transformer = new AccordionTransformer(animOrientation);
+                transformer = new AccordionTransformer();
+                break;
+            case AnimStyle.ACCORDION_UP:
+                transformer = new AccordionUpTransformer();
                 break;
             case AnimStyle.CUBE:
-                transformer = new CubeTransformer(animOrientation);
+                transformer = new CubeTransformer();
+                break;
+            case AnimStyle.CUBE_UP:
+                transformer = new CubeUpTransformer();
                 break;
         }
         setPageTransformer(animTime, transformer);
