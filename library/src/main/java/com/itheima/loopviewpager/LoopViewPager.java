@@ -234,6 +234,9 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
     }
 
     public void start() {
+        if (imgLength == 0 && titleLength == 0) {
+            throw new IllegalArgumentException();
+        }
         loopDotsViews.clear();
         loopTitleViews.clear();
         getLoopChild(this);
@@ -298,7 +301,6 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
     }
 
     public LoopViewPager setTitleData(T titleData) {
-
         this.titleData = titleData;
         this.titleLength = 0;
         if (titleData instanceof List) {
@@ -313,6 +315,10 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
             return this;
         } else
             throw new IllegalArgumentException();
+    }
+
+    public void setImgLength(int imgLength) {
+        this.imgLength = imgLength;
     }
 
     public void clear() {

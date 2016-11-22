@@ -17,15 +17,12 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.itcastsh:loopviewpager:1.2.1'
+    compile 'com.github.itcastsh:loopviewpager:1.2.2'
 }
 ```
 
 #可配置的属性
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
     <declare-styleable name="LoopViewPager">
         <!-- 轮播时间，默认值0表示不自动轮播 -->
         <attr name="loopTime" format="integer" />
@@ -35,15 +32,16 @@ dependencies {
         <attr name="animStyle" format="enum">
             <!-- 折叠效果 -->
             <enum name="accordion" value="1" />
+            <enum name="accordionUp" value="2" />
             <!-- 立方体效果 -->
-            <enum name="cube" value="2" />
+            <enum name="cube" value="3" />
+            <enum name="cubeUp" value="4" />
         </attr>
         <!-- 是否可以手动滚动页面，默认true -->
         <attr name="scrollEnable" format="boolean" />
         <!-- 触摸页面是否停止轮播，默认true -->
         <attr name="touchEnable" format="boolean" />
     </declare-styleable>
-
     <declare-styleable name="LoopDotsView">
         <!-- 圆点大小 -->
         <attr name="dotSize" format="integer|dimension|reference" />
@@ -53,7 +51,6 @@ dependencies {
         <attr name="dotHeight" format="integer|dimension|reference" />
         <!-- 圆点距离 -->
         <attr name="dotRange" format="integer|dimension|reference" />
-
         <!-- 圆点形状 -->
         <attr name="dotShape">
             <!-- 矩形，默认值 -->
@@ -69,21 +66,18 @@ dependencies {
         <attr name="dotColor" format="color|reference" />
         <!-- 圆点选中颜色，默认值0x55000000 -->
         <attr name="dotSelectColor" format="color|reference" />
-
         <!-- 圆点资源 -->
         <attr name="dotResource" format="reference" />
         <!-- 圆点选中资源 -->
         <attr name="dotSelectResource" format="reference" />
     </declare-styleable>
-
-</resources>
 ```
 #配置说明
 - 1、loopTime的值应不小于1s，如果值为0，则不自动轮播；
 - 2、animTime的值应小于loopTime；
 - 3、dotWidth、dotHeight、dotRange如果没有设置，则默认值为dotSize；
 - 4、如果设置了dotResource、dotSelectResource，则dotShape、dotColor、dotSelectColor配置不生效；
-
+- 5、轮播调用start()方法，停止轮播调用stop()方法，start前至少设置setImgData、setImgLength、setTitleData中的其中一个；
 
 #代码示例
 ###XML
@@ -133,7 +127,9 @@ dependencies {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_demo2);
         loopViewPager = (LoopViewPager) findViewById(R.id.lvp_pager);
-        loopViewPager.setImgAndTitleData(imgListString(), titleListString());
+        loopViewPager.setImgData(DataFactory.imgListString());
+        loopViewPager.setTitleData(DataFactory.titleListString());
+        loopViewPager.start();
     }
 
     private List<String> imgListString() {
@@ -169,23 +165,33 @@ public class SimpleDemo2 extends AppCompatActivity {
         setContentView(R.layout.activity_simple_demo2);
         loopViewPager = (LoopViewPager) findViewById(R.id.lvp_pager);
         initData();
+
         // 自定义View
-        loopViewPager.setOnCreateItemViewListener(new LoopViewPager.OnCreateItemViewListener() {
+        loopViewPager.setOnCreateItemViewListener(new OnCreateItemViewListener() {
             @Override
             public View getItemView(int position) {
                 return viewList.get(position);
             }
         });
-        // 自定义动画
-        loopViewPager.setPageTransformer(1500, new ViewPager.PageTransformer() {
+        //处理点击事件
+        loopViewPager.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void transformPage(View view, float position) {
-                view.setPivotX(position <= 0 ? view.getMeasuredWidth() : 0);
-                view.setPivotY(view.getMeasuredHeight() * 0.5f);
-                view.setRotationY(90f * position);
+            public void onItemClick(View view, int position) {
+                Toast.makeText(SimpleDemo2.this, "position=" + position, Toast.LENGTH_SHORT).show();
             }
         });
-        loopViewPager.setTitleData(DataFactory.titleListString());
+        // 自定义动画
+        loopViewPager.setPageTransformer(1500, new LoopVerticalTransformer() {
+            @Override
+            public void transformViewPage(View view, float position) {
+                view.setPivotX(view.getMeasuredWidth() * 0.5f);
+                view.setPivotY(position <= 0 ? view.getMeasuredHeight() : 0);
+                view.setRotationX(-90f * position);
+            }
+        });
+        loopViewPager.setImgLength(viewList.size());
+//        loopViewPager.setTitleData(DataFactory.titleListString());
+        loopViewPager.start();
     }
 
     private void initData() {
@@ -211,6 +217,12 @@ public class SimpleDemo2 extends AppCompatActivity {
             }
             viewList.add(view);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loopViewPager.stop();
     }
 
 }

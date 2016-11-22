@@ -20,7 +20,6 @@
         <!-- 触摸页面是否停止轮播，默认true -->
         <attr name="touchEnable" format="boolean" />
     </declare-styleable>
-
     <declare-styleable name="LoopDotsView">
         <!-- 圆点大小 -->
         <attr name="dotSize" format="integer|dimension|reference" />
@@ -30,7 +29,6 @@
         <attr name="dotHeight" format="integer|dimension|reference" />
         <!-- 圆点距离 -->
         <attr name="dotRange" format="integer|dimension|reference" />
-
         <!-- 圆点形状 -->
         <attr name="dotShape">
             <!-- 矩形，默认值 -->
@@ -46,7 +44,6 @@
         <attr name="dotColor" format="color|reference" />
         <!-- 圆点选中颜色，默认值0x55000000 -->
         <attr name="dotSelectColor" format="color|reference" />
-
         <!-- 圆点资源 -->
         <attr name="dotResource" format="reference" />
         <!-- 圆点选中资源 -->

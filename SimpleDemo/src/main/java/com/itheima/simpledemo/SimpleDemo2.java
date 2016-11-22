@@ -2,15 +2,19 @@ package com.itheima.simpledemo;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.itheima.loopviewpager.LoopViewPager;
+import com.itheima.loopviewpager.anim.transformer.LoopTransformer;
+import com.itheima.loopviewpager.anim.transformer.LoopVerticalTransformer;
+import com.itheima.loopviewpager.listener.OnCreateItemViewListener;
+import com.itheima.loopviewpager.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,23 +31,33 @@ public class SimpleDemo2 extends AppCompatActivity {
         setContentView(R.layout.activity_simple_demo2);
         loopViewPager = (LoopViewPager) findViewById(R.id.lvp_pager);
         initData();
+
         // 自定义View
-        loopViewPager.setOnCreateItemViewListener(new LoopViewPager.OnCreateItemViewListener() {
+        loopViewPager.setOnCreateItemViewListener(new OnCreateItemViewListener() {
             @Override
             public View getItemView(int position) {
                 return viewList.get(position);
             }
         });
-        // 自定义动画
-        loopViewPager.setPageTransformer(1500, new ViewPager.PageTransformer() {
+        //处理点击事件
+        loopViewPager.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void transformPage(View view, float position) {
-                view.setPivotX(position <= 0 ? view.getMeasuredWidth() : 0);
-                view.setPivotY(view.getMeasuredHeight() * 0.5f);
-                view.setRotationY(90f * position);
+            public void onItemClick(View view, int position) {
+                Toast.makeText(SimpleDemo2.this, "position=" + position, Toast.LENGTH_SHORT).show();
             }
         });
-        loopViewPager.setTitleData(DataFactory.titleListString());
+        // 自定义动画
+        loopViewPager.setPageTransformer(1500, new LoopVerticalTransformer() {
+            @Override
+            public void transformViewPage(View view, float position) {
+                view.setPivotX(view.getMeasuredWidth() * 0.5f);
+                view.setPivotY(position <= 0 ? view.getMeasuredHeight() : 0);
+                view.setRotationX(-90f * position);
+            }
+        });
+        loopViewPager.setImgLength(viewList.size());
+//        loopViewPager.setTitleData(DataFactory.titleListString());
+        loopViewPager.start();
     }
 
     private void initData() {
@@ -69,6 +83,12 @@ public class SimpleDemo2 extends AppCompatActivity {
             }
             viewList.add(view);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loopViewPager.stop();
     }
 
 }
