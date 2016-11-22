@@ -20,6 +20,8 @@ import com.itheima.loopviewpager.anim.transformer.AccordionTransformer;
 import com.itheima.loopviewpager.anim.transformer.AccordionUpTransformer;
 import com.itheima.loopviewpager.anim.transformer.CubeTransformer;
 import com.itheima.loopviewpager.anim.transformer.CubeUpTransformer;
+import com.itheima.loopviewpager.listener.OnCreateItemViewListener;
+import com.itheima.loopviewpager.listener.OnItemClickListener;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -188,10 +190,10 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
             }
             if (loopTitleViews.size() > 0 && titleLength > 0) {
                 for (LoopTitleView loopTitleView : loopTitleViews) {
-                    if (titleList != null) {
-                        loopTitleView.setText("" + titleList.get(currentIndex));
-                    } else if (titleArray != null) {
-                        loopTitleView.setText("" + titleArray[currentIndex]);
+                    if (titleData instanceof List) {
+                        loopTitleView.setText("" + ((List) titleData).get(currentIndex));
+                    } else if (titleData instanceof String[]) {
+                        loopTitleView.setText("" + ((String[]) titleData)[currentIndex]);
                     }
                 }
             }
@@ -212,10 +214,12 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
         }
         if (view == null) {
             view = new ImageView(getContext());
-            if (imgList != null) {
-                Glide.with(getContext()).load(imgList.get(currentIndex)).centerCrop().into((ImageView) view);
-            } else if (imgArray != null) {
-                Glide.with(getContext()).load(imgArray[currentIndex]).centerCrop().into((ImageView) view);
+            if (imgData instanceof List) {
+                Glide.with(getContext()).load(((List) imgData).get(currentIndex)).centerCrop().into((ImageView) view);
+            } else if (imgData instanceof Integer[]) {
+                Glide.with(getContext()).load(((Integer[]) imgData)[currentIndex]).centerCrop().into((ImageView) view);
+            } else if (imgData instanceof String[]) {
+                Glide.with(getContext()).load(((String[]) imgData)[currentIndex]).centerCrop().into((ImageView) view);
             }
         }
         view.setOnClickListener(new OnClickListener() {
@@ -229,7 +233,7 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
         return view;
     }
 
-    private void start() {
+    public void start() {
         loopDotsViews.clear();
         loopTitleViews.clear();
         getLoopChild(this);
@@ -243,6 +247,12 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
         handler.removeCallbacksAndMessages(null);
         if (loopTime > 0) {
             handler.sendEmptyMessageDelayed(CODE, loopTime);
+        }
+    }
+
+    public void stop() {
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
         }
     }
 
@@ -262,109 +272,57 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
         }
     }
 
-    private List<T> imgList;//图片集合数据
-    private T[] imgArray;//图片数组数据
-    private int imgLength;//图片数据长度
-    private List<String> titleList;//标题集合数据
-    private String[] titleArray;//标题数组数据
-    private int titleLength;//标题数据长度
+    private T imgData;
+    private T titleData;
+    private int imgLength;
+    private int titleLength;
 
-    public void setImgData(List<T> imgList) {
-        this.imgList = imgList;
-        this.imgArray = null;
-        this.imgLength = imgList.size();
-        this.titleList = null;
-        this.titleArray = null;
+    public LoopViewPager setImgData(T imgData) {
+        this.imgData = imgData;
+        this.imgLength = 0;
+        if (imgData instanceof List) {
+            this.imgLength = ((List) imgData).size();
+        } else {
+            if (imgData instanceof Integer[]) {
+                this.imgLength = ((Integer[]) imgData).length;
+            } else if (imgData instanceof String[]) {
+                this.imgLength = ((String[]) imgData).length;
+            }
+        }
+        if (imgLength > 0)
+            return this;
+        else {
+            return null;
+        }
+    }
+
+    public LoopViewPager setTitleData(T titleData) {
+        this.titleData = titleData;
         this.titleLength = 0;
-        start();
+        if (titleData instanceof List) {
+            this.titleLength = ((List) titleData).size();
+        } else if (titleData instanceof String[]) {
+            this.titleLength = ((String[]) titleData).length;
+        }
+        if (titleLength > 0)
+            return this;
+        else {
+            return null;
+        }
     }
 
-    public void setImgData(T[] imgArray) {
-        this.imgArray = imgArray;
-        this.imgList = null;
-        this.imgLength = imgArray.length;
-        this.titleList = null;
-        this.titleArray = null;
-        this.titleLength = 0;
-        start();
-    }
-
-    public void setTitleData(List<String> titleList) {
-        this.imgList = null;
-        this.imgArray = null;
-        this.imgLength = titleList.size();
-        this.titleList = titleList;
-        this.titleArray = null;
-        this.titleLength = titleList.size();
-        start();
-    }
-
-    public void setTitleData(String[] imgArray) {
-        this.imgArray = null;
-        this.imgList = null;
-        this.imgLength = imgArray.length;
-        this.titleList = null;
-        this.titleArray = imgArray;
-        this.titleLength = imgArray.length;
-        start();
-    }
-
-    public void setImgAndTitleData(List<T> imgList, List<String> titleList) {
-        this.imgList = imgList;
-        this.imgArray = null;
-        this.imgLength = imgList.size();
-        this.titleList = titleList;
-        this.titleArray = null;
-        this.titleLength = titleList.size();
-        start();
-    }
-
-    public void setImgAndTitleData(List<T> imgList, String[] titleArray) {
-        this.imgList = imgList;
-        this.imgArray = null;
-        this.imgLength = imgList.size();
-        this.titleList = null;
-        this.titleArray = titleArray;
-        this.titleLength = titleArray.length;
-        start();
-    }
-
-    public void setImgAndTitleData(T[] imgArray, List<String> titleList) {
-        this.imgList = null;
-        this.imgArray = imgArray;
-        this.imgLength = imgArray.length;
-        this.titleList = titleList;
-        this.titleArray = null;
-        this.titleLength = titleList.size();
-        start();
-    }
-
-    public void setImgAndTitleData(T[] imgArray, String[] titleArray) {
-        this.imgList = null;
-        this.imgArray = imgArray;
-        this.imgLength = imgArray.length;
-        this.titleList = null;
-        this.titleArray = titleArray;
-        this.titleLength = titleArray.length;
-        start();
-    }
-
-    //条目创建监听
-    public interface OnCreateItemViewListener {
-        View getItemView(int position);
-    }
-
+    /**
+     * 条目创建监听
+     */
     private OnCreateItemViewListener onCreateItemViewListener;
 
     public void setOnCreateItemViewListener(OnCreateItemViewListener onCreateItemViewListener) {
         this.onCreateItemViewListener = onCreateItemViewListener;
     }
 
-    //条目点击监听
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-    }
-
+    /**
+     * 条目点击监听
+     */
     private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
