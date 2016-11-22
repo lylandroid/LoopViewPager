@@ -197,7 +197,7 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
 
     }
 
-    private View getDefaultItemView(int currentIndex) {
+    private View getDefaultItemView(final int currentIndex) {
         View view = null;
         if (onCreateItemViewListener != null) {
             view = onCreateItemViewListener.getItemView(currentIndex);
@@ -210,17 +210,15 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
                 Glide.with(getContext()).load(imgArray[currentIndex]).centerCrop().into((ImageView) view);
             }
         }
+        view.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(view, currentIndex);
+                }
+            }
+        });
         return view;
-    }
-
-    public interface OnCreateItemViewListener {
-        View getItemView(int position);
-    }
-
-    private OnCreateItemViewListener onCreateItemViewListener;
-
-    public void setOnCreateItemViewListener(OnCreateItemViewListener onCreateItemViewListener) {
-        this.onCreateItemViewListener = onCreateItemViewListener;
     }
 
     private void start() {
@@ -341,6 +339,28 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
         this.titleArray = titleArray;
         this.titleLength = titleArray.length;
         start();
+    }
+
+    //条目创建监听
+    public interface OnCreateItemViewListener {
+        View getItemView(int position);
+    }
+
+    private OnCreateItemViewListener onCreateItemViewListener;
+
+    public void setOnCreateItemViewListener(OnCreateItemViewListener onCreateItemViewListener) {
+        this.onCreateItemViewListener = onCreateItemViewListener;
+    }
+
+    //条目点击监听
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
 }
