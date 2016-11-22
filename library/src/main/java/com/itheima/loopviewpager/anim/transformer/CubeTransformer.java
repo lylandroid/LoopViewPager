@@ -5,7 +5,7 @@ import android.view.View;
 /**
  * 立方体
  */
-public class CubeTransformer extends BaseTransformer {
+public class CubeTransformer extends LoopTransformer {
 
     @Override
     public void transformPage(View view, float position) {
