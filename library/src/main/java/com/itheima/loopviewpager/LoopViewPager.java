@@ -298,6 +298,7 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
     }
 
     public LoopViewPager setTitleData(T titleData) {
+
         this.titleData = titleData;
         this.titleLength = 0;
         if (titleData instanceof List) {
@@ -305,9 +306,12 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
         } else if (titleData instanceof String[]) {
             this.titleLength = ((String[]) titleData).length;
         }
-        if (titleLength > 0)
+        if (titleLength > 0) {
+            if (imgData == null) {
+                imgLength = titleLength;
+            }
             return this;
-        else
+        } else
             throw new IllegalArgumentException();
     }
 
