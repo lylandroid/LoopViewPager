@@ -2,7 +2,7 @@ package com.itheima.loopviewpager.anim.transformer;
 
 import android.view.View;
 
-public abstract class BaseVerticalTransformer extends BaseTransformer {
+public abstract class LoopVerticalTransformer extends LoopTransformer {
 
     @Override
     public void transformPage(View view, float position) {
