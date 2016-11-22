@@ -292,7 +292,7 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
         if (imgLength > 0)
             return this;
         else {
-            return null;
+            throw
         }
     }
 
