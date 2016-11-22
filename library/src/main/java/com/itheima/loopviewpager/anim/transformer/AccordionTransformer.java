@@ -5,7 +5,7 @@ import android.view.View;
 /**
  * 折叠
  */
-public class AccordionTransformer extends BaseTransformer {
+public class AccordionTransformer extends LoopTransformer {
 
     @Override
     public void transformPage(View view, float position) {
