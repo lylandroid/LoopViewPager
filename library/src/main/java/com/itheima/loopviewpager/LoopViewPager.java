@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.itheima.loopviewpager.anim.AccordionTransformer;
+import com.itheima.loopviewpager.anim.AnimOrientation;
 import com.itheima.loopviewpager.anim.AnimStyle;
 import com.itheima.loopviewpager.anim.CubeTransformer;
 import com.itheima.loopviewpager.anim.FixedSpeedScroller;
@@ -62,7 +63,7 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
         loopTime = a.getInt(R.styleable.LoopViewPager_loopTime, 0);
         animTime = a.getInt(R.styleable.LoopViewPager_animTime, 0);
         animStyle = a.getInt(R.styleable.LoopViewPager_animStyle, 0);
-        animOrientation = a.getInt(R.styleable.LoopViewPager_animOrientation, 1);
+        animOrientation = a.getInt(R.styleable.LoopViewPager_animOrientation, AnimOrientation.HORIZONTAL);
         scrollEnable = a.getBoolean(R.styleable.LoopViewPager_scrollEnable, true);
         touchEnable = a.getBoolean(R.styleable.LoopViewPager_touchEnable, true);
         a.recycle();
