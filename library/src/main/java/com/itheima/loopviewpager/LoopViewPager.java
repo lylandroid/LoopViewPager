@@ -28,6 +28,7 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
     private int loopTime;
     private int animTime;
     private int animStyle;
+    private int animOrientation;
     private boolean scrollEnable;
     private boolean touchEnable;
 
@@ -61,6 +62,7 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
         loopTime = a.getInt(R.styleable.LoopViewPager_loopTime, 0);
         animTime = a.getInt(R.styleable.LoopViewPager_animTime, 0);
         animStyle = a.getInt(R.styleable.LoopViewPager_animStyle, 0);
+        animOrientation = a.getInt(R.styleable.LoopViewPager_animOrientation, 1);
         scrollEnable = a.getBoolean(R.styleable.LoopViewPager_scrollEnable, true);
         touchEnable = a.getBoolean(R.styleable.LoopViewPager_touchEnable, true);
         a.recycle();
@@ -86,10 +88,10 @@ public class LoopViewPager<T> extends FrameLayout implements View.OnTouchListene
         ViewPager.PageTransformer transformer = null;
         switch (animStyle) {
             case AnimStyle.ACCORDION:
-                transformer = new AccordionTransformer();
+                transformer = new AccordionTransformer(animOrientation);
                 break;
             case AnimStyle.CUBE:
-                transformer = new CubeTransformer();
+                transformer = new CubeTransformer(animOrientation);
                 break;
         }
         setPageTransformer(animTime, transformer);

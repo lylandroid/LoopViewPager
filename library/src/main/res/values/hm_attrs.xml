@@ -13,6 +13,13 @@
             <!-- 立方体效果 -->
             <enum name="cube" value="2" />
         </attr>
+        <!-- 动画方向 -->
+        <attr name="animOrientation" format="enum">
+            <!-- 水平方向，默认值 -->
+            <enum name="horizontal" value="1" />
+            <!-- 垂直方向 -->
+            <enum name="vertical" value="2" />
+        </attr>
         <!-- 是否可以手动滚动页面，默认true -->
         <attr name="scrollEnable" format="boolean" />
         <!-- 触摸页面是否停止轮播，默认true -->
